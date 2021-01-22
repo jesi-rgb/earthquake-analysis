@@ -1,0 +1,382 @@
+---
+title: "Tree"
+author: "Ignacio Vellido Expósito"
+date: "22/12/2020"
+output: 
+  prettydoc::html_pretty:
+    theme: hpstr
+    toc: true
+    highlight: github
+    df_print: paged
+    number_sections: true
+---
+
+<style>
+.entry-content {
+    width: 95%;
+    max-width: unset;
+}
+pre {
+  overflow-x: train_values;
+}
+pre code {
+  word-wrap: normal;
+  white-space: pre;
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, results="hold", fig.align="center", 
+                      comment=NA, messages=FALSE)
+
+options(java.parameters = "-Xmx6000m")
+
+library(tidyverse)
+library(ggplot2)
+
+library(tree)
+library(RWeka)
+library(partykit)
+library(ggpubr)
+
+set.seed(2)
+```
+
+
+---------------------------------------------------------------------------------------------------------------------
+
+Funciones
+```{r}
+# Calcula accuracy
+accuracy <- function(bag.datos){
+  return (sum (sapply(1:length(bag.datos$y), function(x){
+    if (is.na(bag.datos$predicted[x]))
+      0
+    else if (as.numeric(bag.datos$y[x])==as.numeric(bag.datos$predicted[x]))
+      1
+    else 
+      0
+  }))/length(bag.datos$y))
+}
+
+################################################################################
+
+# Calcula el F1 score micro. Función adaptada de la versión macro de:
+# https://stackoverflow.com/questions/8499361/easy-way-of-counting-precision-recall-and-f1-score-in-r/8502026
+f1_score <- function(predicted, expected, positive.class="1") {
+    res <- list()
+    
+    cm = as.matrix(table(expected, predicted))
+    
+    tp <- diag(cm)
+    fp <- cm[lower.tri(cm)]
+    fn <- cm[upper.tri(cm)]
+
+    res$precision <- tp / (tp + fp)
+    res$recall <- tp / (tp + fn)
+    
+    f1 <-  ifelse(res$precision + res$recall == 0, 0,
+                  2 * res$precision * res$recall / (res$precision + res$recall))
+
+    #Assuming that F1 is zero when it's not possible compute it
+    f1[is.na(f1)] <- 0
+
+    #Binary F1 or Multi-class macro-averaged F1
+    res$f1 <- ifelse(nlevels(expected) == 2, f1[positive.class], mean(f1))
+
+    res
+}
+
+################################################################################
+
+# Muestra matriz de confusión y accuracy
+compare_pred <- function(predicted, expected) {
+  table(expected, predicted) %>% print()
+  
+  f1_score(predicted, expected) %>% print()
+}
+```
+
+---------------------------------------------------------------------------------------------------------------------
+
+Cargar conjuntos de datos preprocesados
+```{r}
+trn_values <- read_csv("data/v11 - preprocessed_train.csv")
+trn_labels <- read_csv("data/v11 - preprocessed_train_labels.csv")
+tst_values  <- read_csv("data/v11 - preprocessed_test.csv")
+
+names <- colnames(trn_values)
+```
+
+```{r}
+trn_values
+trn_labels
+tst_values
+```
+
+```{r}
+colnames(trn_values)
+```
+
+
+```{r}
+# V1
+# factores <- c(1,8:15,17:18)
+
+# v2
+# factores <- c("geo_level_1_id",
+#               # "count_floors_pre_eq",
+#               # "age",
+#               # "area_percentage",
+#               "land_surface_condition",
+#               "foundation_type",
+#               "roof_type",
+#               "ground_floor_type",
+#               "other_floor_type",
+#               "position",
+#               # "count_families",
+#               "has_superstructure",
+#               "has_secondary")
+
+# v3 y v4
+# factores <- c(3:ncol(trn_values))
+
+# v5
+# factores <- c(1, 3:ncol(trn_values))
+
+# Cuidado que count_families está incluído (la 22)
+# factores <- c(5:21, 23:ncol(trn_values))
+
+# V7 y 8
+# factores <- c(4:14, 15:ncol(trn_values))
+
+# v9
+# factores <- c(1,5:21,23:ncol(trn_values))
+
+# v10y11
+factores <- c(1:ncol(trn_values))
+```
+
+
+Cambiar lectura por defecto de read_csv (pasar a factors)
+```{r}
+for (i in factores) {
+  trn_values[[i]] <- trn_values[[i]] %>% as.factor()
+  tst_values[[i]] <- tst_values[[i]] %>% as.factor()
+}
+
+# Las etiquetas
+trn_labels$damage_grade <- trn_labels$damage_grade %>% as.factor()
+
+# Añadir labels a train
+train <- bind_cols(trn_values, trn_labels$damage_grade)
+colnames(train)[ncol(train)] <- "labels"
+```
+
+```{r}
+train
+tst_values
+```
+
+<!-- Quitar duplicados aquí -->
+```{r}
+# sum(duplicated(train))
+# train <- unique(train)
+# sum(duplicated(train))
+```
+
+
+Separamos un para validar localmente
+```{r}
+size <- floor(0.95 * nrow(train))
+
+index <- sample(1:nrow(train), size = size)
+
+val <- train[-index,]
+train  <- train[index,]
+```
+
+
+Comprobar desbalanceo de clases
+```{r}
+table(train$labels)
+```
+
+
+Datos summary
+```{r}
+summary(train)
+```
+
+---------------------------------------------------------------------------------------------------------------------
+Con tree
+---------------------------------------------------------------------------------------------------------------------
+
+```{r}
+set.seed(2)
+
+# El árbol se crece al máximo posible para luego aplicar el pruning
+arbol <- tree(labels ~ .,data = train,
+                mincut  = 1,
+                minsize = 2,
+                mindev  = 0
+              )
+
+# Búsqueda por validación cruzada
+cv_tree <- cv.tree(arbol, FUN = prune.misclass, K = 5)
+
+summary(cv_tree)
+```
+
+De https://www.cienciadedatos.net/documentos/33_arboles_decision_random_forest_gradient_boosting_c50#%C3%81rboles_de_clasificaci%C3%B3n
+
+Tamaño óptimo encontrado:
+```{r}
+best_size <- rev(cv_tree$size)[which.min(rev(cv_tree$dev))]
+cat("Mejor tamaño: ")
+best_size
+```
+
+
+```{r}
+resultados_cv <- data.frame(n_nodos = cv_tree$size, clas_error = cv_tree$dev,
+                            alpha = cv_tree$k)
+
+p1 <- ggplot(data = resultados_cv, aes(x = n_nodos, y = clas_error)) +
+      geom_line() + 
+      geom_point() +
+      geom_vline(xintercept = best_size, color = "red") +
+      labs(title = " Error de clasificación vs \n tamaño del árbol") +
+      theme_bw() 
+  
+p2 <- ggplot(data = resultados_cv, aes(x = alpha, y = clas_error)) +
+      geom_line() + 
+      geom_point() +
+      labs(title = " Error de clasificación vs \n penalización alpha") +
+      theme_bw() 
+
+ggarrange(p1, p2)
+```
+
+Guardar mejor árbol
+```{r}
+cart_tree <- prune.misclass(
+                  tree = arbol,
+                  best = best_size
+               )
+
+summary(cart_tree)
+```
+
+
+
+```{r}
+plot(cart_tree)
+# text(cart_tree)
+```
+
+
+Analizar resultados
+```{r}
+# Aplico el arbol sobre el conjunto de validación
+cart_predict <- predict(cart_tree, val, type ="class")
+
+compare_pred(cart_predict, val$labels)
+```
+
+---------------------------------------------------------------------------------------------------------------------
+J48
+---------------------------------------------------------------------------------------------------------------------
+
+```{r}
+# J48 es la implementacion de C4.5 en Weka, y su uso es similar
+# al de la funcion "tree" vista anteriormente en este script.
+# Vemos un ejemplo de uso sobre "iris"
+c45_tree <- J48(labels~., data=train)
+
+c45_tree$classifier$toSummaryString()
+```
+
+Para graficar en caso de que el árbol sea pequeño
+```{r}
+# png("airct.png", res=80, height=800, width=1600) 
+  #  plot(c45_tree, gp = gpar(fontsize = 6),     # font size changed to 6
+  # inner_panel=node_inner,
+  # ip_args=list(
+  #      abbreviate = TRUE, 
+  #      id = FALSE)
+  # )
+# dev.off()
+```
+
+Predicción
+```{r}
+c45_predict <- predict(c45_tree, val)
+
+resul = as.data.frame(cbind(predicted = c45_predict, y=val$labels))
+cat("Accuracy global:\n")
+accuracy(resul)
+
+compare_pred(c45_predict, val$labels)
+```
+
+Evaluar con CV
+```{r}
+set.seed(2)
+# Si queremos hacer una validacion cruzada usando RWeka
+cv_resul <- evaluate_Weka_classifier(c45_tree, numFolds=5)
+cv_resul
+```
+
+---------------------------------------------------------------------------------------------------------------------
+Escribir resultados
+---------------------------------------------------------------------------------------------------------------------
+
+Predecir conjunto de test
+CART
+```{r}
+cart_test <- predict(cart_tree, tst_values, type ="class") %>% as.data.frame()
+colnames(cart_test) <- "damage_grade"
+
+cart_test %>% head()
+
+print("Predicciones test")
+table(cart_test)
+
+print("Predicciones val")
+table(cart_predict)
+
+print("Etiquetas val")
+table(val$labels)
+```
+
+C4.5
+```{r}
+c45_test <- predict(c45_tree, tst_values) %>% as.data.frame()
+colnames(c45_test) <- "damage_grade"
+
+c45_test %>% head()
+
+print("Predicciones test")
+table(c45_test)
+
+print("Predicciones val")
+table(c45_predict)
+
+print("Etiquetas val")
+table(val$labels)
+```
+
+Guardar resultados
+```{r}
+# Leer IDs de test
+buildings_ids <- read_csv("./data/test_values.csv")[,1]
+
+# buildings_ids %>%
+#   bind_cols(cart_test) %>%
+#   write_csv("./out/v11 - cart.csv")
+
+buildings_ids %>% 
+  bind_cols(c45_test) %>% 
+  write_csv("./out/v11 - c45.csv")
+```
