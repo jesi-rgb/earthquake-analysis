@@ -1,21 +1,22 @@
-library(tidyverse)
+# library(tidyverse)
 library(nnet)
-library(scales)
+library(mgcv)
+# library(scales)
 
 
 train_values <- read.csv(
-  "data/Richters_Predictor_Modeling_Earthquake_Damage_-_Train_Values.csv"
+  "../data/Richters_Predictor_Modeling_Earthquake_Damage_-_Train_Values.csv"
 )
 train_labels <- read.csv(
-  "data/Richters_Predictor_Modeling_Earthquake_Damage_-_Train_Labels.csv"
+  "../data/Richters_Predictor_Modeling_Earthquake_Damage_-_Train_Labels.csv"
 )
-head(train_labels)
+# head(train_labels)
 
 full_data = train_values
 full_data$damage_grade = train_labels$damage_grade
 full_data$damage_grade = factor(full_data$damage_grade, levels = c(1, 2, 3), labels=c("low damage", "medium damage", "almost destructed"))
 full_data$damage_grade = relevel(full_data$damage_grade, ref=1)
-str(full_data)
+# str(full_data)
 
 
 
@@ -38,12 +39,28 @@ prediction = function(n, formula){
 
 attach(full_data)
 n = 100000 #260601
-formula = damage_grade ~ .
+formula = damage_grade ~ . -building_id - geo_level_2_id - 
+                            geo_level_3_id - 
+                            area_percentage - 
+                            height_percentage - 
+                            has_superstructure_rc_non_engineered -
+                            legal_ownership_status -
+                            plan_configuration -
+                            has_secondary_use_institution -
+                            has_secondary_use_health_post -
+                            has_secondary_use_use_police -
+                            has_secondary_use_other -
+                            has_secondary_use_rental -
+                            has_secondary_use_industry -
+                            has_secondary_use_gov_office -
+                            has_superstructure_cement_mortar_brick -
+                            has_superstructure_cement_mortar_stone
+
 prediction(n, formula)
 
 
-full_data %>% ggplot(aes(x=plan_configuration)) + geom_bar() + scale_y_continuous(trans = "log10")
-full_data %>% count(ground_floor_type)
-
-full_data %>% count(position)
+# full_data %>% ggplot(aes(x=plan_configuration)) + geom_bar() + scale_y_continuous(trans = "log10")
+# full_data %>% count(ground_floor_type)
+# 
+# full_data %>% count(position)
 
