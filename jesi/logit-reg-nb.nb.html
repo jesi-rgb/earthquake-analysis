@@ -11,7 +11,7 @@
 
 
 
-<title>Logistic Regression: Multinom</title>
+<title>Logistic Regression: Multinom and OVA/AVA</title>
 
 <script>/*! jQuery v1.11.3 | (c) 2005, 2015 jQuery Foundation, Inc. | jquery.org/license */
 !function(a,b){"object"==typeof module&&"object"==typeof module.exports?module.exports=a.document?b(a,!0):function(a){if(!a.document)throw new Error("jQuery requires a window with a document");return b(a)}:b(a)}("undefined"!=typeof window?window:this,function(a,b){var c=[],d=c.slice,e=c.concat,f=c.push,g=c.indexOf,h={},i=h.toString,j=h.hasOwnProperty,k={},l="1.11.3",m=function(a,b){return new m.fn.init(a,b)},n=/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,o=/^-ms-/,p=/-([\da-z])/gi,q=function(a,b){return b.toUpperCase()};m.fn=m.prototype={jquery:l,constructor:m,selector:"",length:0,toArray:function(){return d.call(this)},get:function(a){return null!=a?0>a?this[a+this.length]:this[a]:d.call(this)},pushStack:function(a){var b=m.merge(this.constructor(),a);return b.prevObject=this,b.context=this.context,b},each:function(a,b){return m.each(this,a,b)},map:function(a){return this.pushStack(m.map(this,function(b,c){return a.call(b,c,b)}))},slice:function(){return this.pushStack(d.apply(this,arguments))},first:function(){return this.eq(0)},last:function(){return this.eq(-1)},eq:function(a){var b=this.length,c=+a+(0>a?b:0);return this.pushStack(c>=0&&b>c?[this[c]]:[])},end:function(){return this.prevObject||this.constructor(null)},push:f,sort:c.sort,splice:c.splice},m.extend=m.fn.extend=function(){var a,b,c,d,e,f,g=arguments[0]||{},h=1,i=arguments.length,j=!1;for("boolean"==typeof g&&(j=g,g=arguments[h]||{},h++),"object"==typeof g||m.isFunction(g)||(g={}),h===i&&(g=this,h--);i>h;h++)if(null!=(e=arguments[h]))for(d in e)a=g[d],c=e[d],g!==c&&(j&&c&&(m.isPlainObject(c)||(b=m.isArray(c)))?(b?(b=!1,f=a&&m.isArray(a)?a:[]):f=a&&m.isPlainObject(a)?a:{},g[d]=m.extend(j,f,c)):void 0!==c&&(g[d]=c));return g},m.extend({expando:"jQuery"+(l+Math.random()).replace(/\D/g,""),isReady:!0,error:function(a){throw new Error(a)},noop:function(){},isFunction:function(a){return"function"===m.type(a)},isArray:Array.isArray||function(a){return"array"===m.type(a)},isWindow:function(a){return null!=a&&a==a.window},isNumeric:function(a){return!m.isArray(a)&&a-parseFloat(a)+1>=0},isEmptyObject:function(a){var b;for(b in a)return!1;return!0},isPlainObject:function(a){var b;if(!a||"object"!==m.type(a)||a.nodeType||m.isWindow(a))return!1;try{if(a.constructor&&!j.call(a,"constructor")&&!j.call(a.constructor.prototype,"isPrototypeOf"))return!1}catch(c){return!1}if(k.ownLast)for(b in a)return j.call(a,b);for(b in a);return void 0===b||j.call(a,b)},type:function(a){return null==a?a+"":"object"==typeof a||"function"==typeof a?h[i.call(a)]||"object":typeof a},globalEval:function(b){b&&m.trim(b)&&(a.execScript||function(b){a.eval.call(a,b)})(b)},camelCase:function(a){return a.replace(o,"ms-").replace(p,q)},nodeName:function(a,b){return a.nodeName&&a.nodeName.toLowerCase()===b.toLowerCase()},each:function(a,b,c){var d,e=0,f=a.length,g=r(a);if(c){if(g){for(;f>e;e++)if(d=b.apply(a[e],c),d===!1)break}else for(e in a)if(d=b.apply(a[e],c),d===!1)break}else if(g){for(;f>e;e++)if(d=b.call(a[e],e,a[e]),d===!1)break}else for(e in a)if(d=b.call(a[e],e,a[e]),d===!1)break;return a},trim:function(a){return null==a?"":(a+"").replace(n,"")},makeArray:function(a,b){var c=b||[];return null!=a&&(r(Object(a))?m.merge(c,"string"==typeof a?[a]:a):f.call(c,a)),c},inArray:function(a,b,c){var d;if(b){if(g)return g.call(b,a,c);for(d=b.length,c=c?0>c?Math.max(0,d+c):c:0;d>c;c++)if(c in b&&b[c]===a)return c}return-1},merge:function(a,b){var c=+b.length,d=0,e=a.length;while(c>d)a[e++]=b[d++];if(c!==c)while(void 0!==b[d])a[e++]=b[d++];return a.length=e,a},grep:function(a,b,c){for(var d,e=[],f=0,g=a.length,h=!c;g>f;f++)d=!b(a[f],f),d!==h&&e.push(a[f]);return e},map:function(a,b,c){var d,f=0,g=a.length,h=r(a),i=[];if(h)for(;g>f;f++)d=b(a[f],f,c),null!=d&&i.push(d);else for(f in a)d=b(a[f],f,c),null!=d&&i.push(d);return e.apply([],i)},guid:1,proxy:function(a,b){var c,e,f;return"string"==typeof b&&(f=a[b],b=a,a=f),m.isFunction(a)?(c=d.call(arguments,2),e=function(){return a.apply(b||this,c.concat(d.call(arguments)))},e.guid=a.guid=a.guid||m.guid++,e):void 0},now:function(){return+new Date},support:k}),m.each("Boolean Number String Function Array Date RegExp Object Error".split(" "),function(a,b){h["[object "+b+"]"]=b.toLowerCase()});function r(a){var b="length"in a&&a.length,c=m.type(a);return"function"===c||m.isWindow(a)?!1:1===a.nodeType&&b?!0:"array"===c||0===b||"number"==typeof b&&b>0&&b-1 in a}var s=function(a){var b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u="sizzle"+1*new Date,v=a.document,w=0,x=0,y=ha(),z=ha(),A=ha(),B=function(a,b){return a===b&&(l=!0),0},C=1<<31,D={}.hasOwnProperty,E=[],F=E.pop,G=E.push,H=E.push,I=E.slice,J=function(a,b){for(var c=0,d=a.length;d>c;c++)if(a[c]===b)return c;return-1},K="checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped",L="[\\x20\\t\\r\\n\\f]",M="(?:\\\\.|[\\w-]|[^\\x00-\\xa0])+",N=M.replace("w","w#"),O="\\["+L+"*("+M+")(?:"+L+"*([*^$|!~]?=)"+L+"*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|("+N+"))|)"+L+"*\\]",P=":("+M+")(?:\\((('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|((?:\\\\.|[^\\\\()[\\]]|"+O+")*)|.*)\\)|)",Q=new RegExp(L+"+","g"),R=new RegExp("^"+L+"+|((?:^|[^\\\\])(?:\\\\.)*)"+L+"+$","g"),S=new RegExp("^"+L+"*,"+L+"*"),T=new RegExp("^"+L+"*([>+~]|"+L+")"+L+"*"),U=new RegExp("="+L+"*([^\\]'\"]*?)"+L+"*\\]","g"),V=new RegExp(P),W=new RegExp("^"+N+"$"),X={ID:new RegExp("^#("+M+")"),CLASS:new RegExp("^\\.("+M+")"),TAG:new RegExp("^("+M.replace("w","w*")+")"),ATTR:new RegExp("^"+O),PSEUDO:new RegExp("^"+P),CHILD:new RegExp("^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\("+L+"*(even|odd|(([+-]|)(\\d*)n|)"+L+"*(?:([+-]|)"+L+"*(\\d+)|))"+L+"*\\)|)","i"),bool:new RegExp("^(?:"+K+")$","i"),needsContext:new RegExp("^"+L+"*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\("+L+"*((?:-\\d)?\\d*)"+L+"*\\)|)(?=[^-]|$)","i")},Y=/^(?:input|select|textarea|button)$/i,Z=/^h\d$/i,$=/^[^{]+\{\s*\[native \w/,_=/^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/,aa=/[+~]/,ba=/'|\\/g,ca=new RegExp("\\\\([\\da-f]{1,6}"+L+"?|("+L+")|.)","ig"),da=function(a,b,c){var d="0x"+b-65536;return d!==d||c?b:0>d?String.fromCharCode(d+65536):String.fromCharCode(d>>10|55296,1023&d|56320)},ea=function(){m()};try{H.apply(E=I.call(v.childNodes),v.childNodes),E[v.childNodes.length].nodeType}catch(fa){H={apply:E.length?function(a,b){G.apply(a,I.call(b))}:function(a,b){var c=a.length,d=0;while(a[c++]=b[d++]);a.length=c-1}}}function ga(a,b,d,e){var f,h,j,k,l,o,r,s,w,x;if((b?b.ownerDocument||b:v)!==n&&m(b),b=b||n,d=d||[],k=b.nodeType,"string"!=typeof a||!a||1!==k&&9!==k&&11!==k)return d;if(!e&&p){if(11!==k&&(f=_.exec(a)))if(j=f[1]){if(9===k){if(h=b.getElementById(j),!h||!h.parentNode)return d;if(h.id===j)return d.push(h),d}else if(b.ownerDocument&&(h=b.ownerDocument.getElementById(j))&&t(b,h)&&h.id===j)return d.push(h),d}else{if(f[2])return H.apply(d,b.getElementsByTagName(a)),d;if((j=f[3])&&c.getElementsByClassName)return H.apply(d,b.getElementsByClassName(j)),d}if(c.qsa&&(!q||!q.test(a))){if(s=r=u,w=b,x=1!==k&&a,1===k&&"object"!==b.nodeName.toLowerCase()){o=g(a),(r=b.getAttribute("id"))?s=r.replace(ba,"\\$&"):b.setAttribute("id",s),s="[id='"+s+"'] ",l=o.length;while(l--)o[l]=s+ra(o[l]);w=aa.test(a)&&pa(b.parentNode)||b,x=o.join(",")}if(x)try{return H.apply(d,w.querySelectorAll(x)),d}catch(y){}finally{r||b.removeAttribute("id")}}}return i(a.replace(R,"$1"),b,d,e)}function ha(){var a=[];function b(c,e){return a.push(c+" ")>d.cacheLength&&delete b[a.shift()],b[c+" "]=e}return b}function ia(a){return a[u]=!0,a}function ja(a){var b=n.createElement("div");try{return!!a(b)}catch(c){return!1}finally{b.parentNode&&b.parentNode.removeChild(b),b=null}}function ka(a,b){var c=a.split("|"),e=a.length;while(e--)d.attrHandle[c[e]]=b}function la(a,b){var c=b&&a,d=c&&1===a.nodeType&&1===b.nodeType&&(~b.sourceIndex||C)-(~a.sourceIndex||C);if(d)return d;if(c)while(c=c.nextSibling)if(c===b)return-1;return a?1:-1}function ma(a){return function(b){var c=b.nodeName.toLowerCase();return"input"===c&&b.type===a}}function na(a){return function(b){var c=b.nodeName.toLowerCase();return("input"===c||"button"===c)&&b.type===a}}function oa(a){return ia(function(b){return b=+b,ia(function(c,d){var e,f=a([],c.length,b),g=f.length;while(g--)c[e=f[g]]&&(c[e]=!(d[e]=c[e]))})})}function pa(a){return a&&"undefined"!=typeof a.getElementsByTagName&&a}c=ga.support={},f=ga.isXML=function(a){var b=a&&(a.ownerDocument||a).documentElement;return b?"HTML"!==b.nodeName:!1},m=ga.setDocument=function(a){var b,e,g=a?a.ownerDocument||a:v;return g!==n&&9===g.nodeType&&g.documentElement?(n=g,o=g.documentElement,e=g.defaultView,e&&e!==e.top&&(e.addEventListener?e.addEventListener("unload",ea,!1):e.attachEvent&&e.attachEvent("onunload",ea)),p=!f(g),c.attributes=ja(function(a){return a.className="i",!a.getAttribute("className")}),c.getElementsByTagName=ja(function(a){return a.appendChild(g.createComment("")),!a.getElementsByTagName("*").length}),c.getElementsByClassName=$.test(g.getElementsByClassName),c.getById=ja(function(a){return o.appendChild(a).id=u,!g.getElementsByName||!g.getElementsByName(u).length}),c.getById?(d.find.ID=function(a,b){if("undefined"!=typeof b.getElementById&&p){var c=b.getElementById(a);return c&&c.parentNode?[c]:[]}},d.filter.ID=function(a){var b=a.replace(ca,da);return function(a){return a.getAttribute("id")===b}}):(delete d.find.ID,d.filter.ID=function(a){var b=a.replace(ca,da);return function(a){var c="undefined"!=typeof a.getAttributeNode&&a.getAttributeNode("id");return c&&c.value===b}}),d.find.TAG=c.getElementsByTagName?function(a,b){return"undefined"!=typeof b.getElementsByTagName?b.getElementsByTagName(a):c.qsa?b.querySelectorAll(a):void 0}:function(a,b){var c,d=[],e=0,f=b.getElementsByTagName(a);if("*"===a){while(c=f[e++])1===c.nodeType&&d.push(c);return d}return f},d.find.CLASS=c.getElementsByClassName&&function(a,b){return p?b.getElementsByClassName(a):void 0},r=[],q=[],(c.qsa=$.test(g.querySelectorAll))&&(ja(function(a){o.appendChild(a).innerHTML="<a id='"+u+"'></a><select id='"+u+"-\f]' msallowcapture=''><option selected=''></option></select>",a.querySelectorAll("[msallowcapture^='']").length&&q.push("[*^$]="+L+"*(?:''|\"\")"),a.querySelectorAll("[selected]").length||q.push("\\["+L+"*(?:value|"+K+")"),a.querySelectorAll("[id~="+u+"-]").length||q.push("~="),a.querySelectorAll(":checked").length||q.push(":checked"),a.querySelectorAll("a#"+u+"+*").length||q.push(".#.+[+~]")}),ja(function(a){var b=g.createElement("input");b.setAttribute("type","hidden"),a.appendChild(b).setAttribute("name","D"),a.querySelectorAll("[name=d]").length&&q.push("name"+L+"*[*^$|!~]?="),a.querySelectorAll(":enabled").length||q.push(":enabled",":disabled"),a.querySelectorAll("*,:x"),q.push(",.*:")})),(c.matchesSelector=$.test(s=o.matches||o.webkitMatchesSelector||o.mozMatchesSelector||o.oMatchesSelector||o.msMatchesSelector))&&ja(function(a){c.disconnectedMatch=s.call(a,"div"),s.call(a,"[s!='']:x"),r.push("!=",P)}),q=q.length&&new RegExp(q.join("|")),r=r.length&&new RegExp(r.join("|")),b=$.test(o.compareDocumentPosition),t=b||$.test(o.contains)?function(a,b){var c=9===a.nodeType?a.documentElement:a,d=b&&b.parentNode;return a===d||!(!d||1!==d.nodeType||!(c.contains?c.contains(d):a.compareDocumentPosition&&16&a.compareDocumentPosition(d)))}:function(a,b){if(b)while(b=b.parentNode)if(b===a)return!0;return!1},B=b?function(a,b){if(a===b)return l=!0,0;var d=!a.compareDocumentPosition-!b.compareDocumentPosition;return d?d:(d=(a.ownerDocument||a)===(b.ownerDocument||b)?a.compareDocumentPosition(b):1,1&d||!c.sortDetached&&b.compareDocumentPosition(a)===d?a===g||a.ownerDocument===v&&t(v,a)?-1:b===g||b.ownerDocument===v&&t(v,b)?1:k?J(k,a)-J(k,b):0:4&d?-1:1)}:function(a,b){if(a===b)return l=!0,0;var c,d=0,e=a.parentNode,f=b.parentNode,h=[a],i=[b];if(!e||!f)return a===g?-1:b===g?1:e?-1:f?1:k?J(k,a)-J(k,b):0;if(e===f)return la(a,b);c=a;while(c=c.parentNode)h.unshift(c);c=b;while(c=c.parentNode)i.unshift(c);while(h[d]===i[d])d++;return d?la(h[d],i[d]):h[d]===v?-1:i[d]===v?1:0},g):n},ga.matches=function(a,b){return ga(a,null,null,b)},ga.matchesSelector=function(a,b){if((a.ownerDocument||a)!==n&&m(a),b=b.replace(U,"='$1']"),!(!c.matchesSelector||!p||r&&r.test(b)||q&&q.test(b)))try{var d=s.call(a,b);if(d||c.disconnectedMatch||a.document&&11!==a.document.nodeType)return d}catch(e){}return ga(b,n,null,[a]).length>0},ga.contains=function(a,b){return(a.ownerDocument||a)!==n&&m(a),t(a,b)},ga.attr=function(a,b){(a.ownerDocument||a)!==n&&m(a);var e=d.attrHandle[b.toLowerCase()],f=e&&D.call(d.attrHandle,b.toLowerCase())?e(a,b,!p):void 0;return void 0!==f?f:c.attributes||!p?a.getAttribute(b):(f=a.getAttributeNode(b))&&f.specified?f.value:null},ga.error=function(a){throw new Error("Syntax error, unrecognized expression: "+a)},ga.uniqueSort=function(a){var b,d=[],e=0,f=0;if(l=!c.detectDuplicates,k=!c.sortStable&&a.slice(0),a.sort(B),l){while(b=a[f++])b===a[f]&&(e=d.push(f));while(e--)a.splice(d[e],1)}return k=null,a},e=ga.getText=function(a){var b,c="",d=0,f=a.nodeType;if(f){if(1===f||9===f||11===f){if("string"==typeof a.textContent)return a.textContent;for(a=a.firstChild;a;a=a.nextSibling)c+=e(a)}else if(3===f||4===f)return a.nodeValue}else while(b=a[d++])c+=e(b);return c},d=ga.selectors={cacheLength:50,createPseudo:ia,match:X,attrHandle:{},find:{},relative:{">":{dir:"parentNode",first:!0}," ":{dir:"parentNode"},"+":{dir:"previousSibling",first:!0},"~":{dir:"previousSibling"}},preFilter:{ATTR:function(a){return a[1]=a[1].replace(ca,da),a[3]=(a[3]||a[4]||a[5]||"").replace(ca,da),"~="===a[2]&&(a[3]=" "+a[3]+" "),a.slice(0,4)},CHILD:function(a){return a[1]=a[1].toLowerCase(),"nth"===a[1].slice(0,3)?(a[3]||ga.error(a[0]),a[4]=+(a[4]?a[5]+(a[6]||1):2*("even"===a[3]||"odd"===a[3])),a[5]=+(a[7]+a[8]||"odd"===a[3])):a[3]&&ga.error(a[0]),a},PSEUDO:function(a){var b,c=!a[6]&&a[2];return X.CHILD.test(a[0])?null:(a[3]?a[2]=a[4]||a[5]||"":c&&V.test(c)&&(b=g(c,!0))&&(b=c.indexOf(")",c.length-b)-c.length)&&(a[0]=a[0].slice(0,b),a[2]=c.slice(0,b)),a.slice(0,3))}},filter:{TAG:function(a){var b=a.replace(ca,da).toLowerCase();return"*"===a?function(){return!0}:function(a){return a.nodeName&&a.nodeName.toLowerCase()===b}},CLASS:function(a){var b=y[a+" "];return b||(b=new RegExp("(^|"+L+")"+a+"("+L+"|$)"))&&y(a,function(a){return b.test("string"==typeof a.className&&a.className||"undefined"!=typeof a.getAttribute&&a.getAttribute("class")||"")})},ATTR:function(a,b,c){return function(d){var e=ga.attr(d,a);return null==e?"!="===b:b?(e+="","="===b?e===c:"!="===b?e!==c:"^="===b?c&&0===e.indexOf(c):"*="===b?c&&e.indexOf(c)>-1:"$="===b?c&&e.slice(-c.length)===c:"~="===b?(" "+e.replace(Q," ")+" ").indexOf(c)>-1:"|="===b?e===c||e.slice(0,c.length+1)===c+"-":!1):!0}},CHILD:function(a,b,c,d,e){var f="nth"!==a.slice(0,3),g="last"!==a.slice(-4),h="of-type"===b;return 1===d&&0===e?function(a){return!!a.parentNode}:function(b,c,i){var j,k,l,m,n,o,p=f!==g?"nextSibling":"previousSibling",q=b.parentNode,r=h&&b.nodeName.toLowerCase(),s=!i&&!h;if(q){if(f){while(p){l=b;while(l=l[p])if(h?l.nodeName.toLowerCase()===r:1===l.nodeType)return!1;o=p="only"===a&&!o&&"nextSibling"}return!0}if(o=[g?q.firstChild:q.lastChild],g&&s){k=q[u]||(q[u]={}),j=k[a]||[],n=j[0]===w&&j[1],m=j[0]===w&&j[2],l=n&&q.childNodes[n];while(l=++n&&l&&l[p]||(m=n=0)||o.pop())if(1===l.nodeType&&++m&&l===b){k[a]=[w,n,m];break}}else if(s&&(j=(b[u]||(b[u]={}))[a])&&j[0]===w)m=j[1];else while(l=++n&&l&&l[p]||(m=n=0)||o.pop())if((h?l.nodeName.toLowerCase()===r:1===l.nodeType)&&++m&&(s&&((l[u]||(l[u]={}))[a]=[w,m]),l===b))break;return m-=e,m===d||m%d===0&&m/d>=0}}},PSEUDO:function(a,b){var c,e=d.pseudos[a]||d.setFilters[a.toLowerCase()]||ga.error("unsupported pseudo: "+a);return e[u]?e(b):e.length>1?(c=[a,a,"",b],d.setFilters.hasOwnProperty(a.toLowerCase())?ia(function(a,c){var d,f=e(a,b),g=f.length;while(g--)d=J(a,f[g]),a[d]=!(c[d]=f[g])}):function(a){return e(a,0,c)}):e}},pseudos:{not:ia(function(a){var b=[],c=[],d=h(a.replace(R,"$1"));return d[u]?ia(function(a,b,c,e){var f,g=d(a,null,e,[]),h=a.length;while(h--)(f=g[h])&&(a[h]=!(b[h]=f))}):function(a,e,f){return b[0]=a,d(b,null,f,c),b[0]=null,!c.pop()}}),has:ia(function(a){return function(b){return ga(a,b).length>0}}),contains:ia(function(a){return a=a.replace(ca,da),function(b){return(b.textContent||b.innerText||e(b)).indexOf(a)>-1}}),lang:ia(function(a){return W.test(a||"")||ga.error("unsupported lang: "+a),a=a.replace(ca,da).toLowerCase(),function(b){var c;do if(c=p?b.lang:b.getAttribute("xml:lang")||b.getAttribute("lang"))return c=c.toLowerCase(),c===a||0===c.indexOf(a+"-");while((b=b.parentNode)&&1===b.nodeType);return!1}}),target:function(b){var c=a.location&&a.location.hash;return c&&c.slice(1)===b.id},root:function(a){return a===o},focus:function(a){return a===n.activeElement&&(!n.hasFocus||n.hasFocus())&&!!(a.type||a.href||~a.tabIndex)},enabled:function(a){return a.disabled===!1},disabled:function(a){return a.disabled===!0},checked:function(a){var b=a.nodeName.toLowerCase();return"input"===b&&!!a.checked||"option"===b&&!!a.selected},selected:function(a){return a.parentNode&&a.parentNode.selectedIndex,a.selected===!0},empty:function(a){for(a=a.firstChild;a;a=a.nextSibling)if(a.nodeType<6)return!1;return!0},parent:function(a){return!d.pseudos.empty(a)},header:function(a){return Z.test(a.nodeName)},input:function(a){return Y.test(a.nodeName)},button:function(a){var b=a.nodeName.toLowerCase();return"input"===b&&"button"===a.type||"button"===b},text:function(a){var b;return"input"===a.nodeName.toLowerCase()&&"text"===a.type&&(null==(b=a.getAttribute("type"))||"text"===b.toLowerCase())},first:oa(function(){return[0]}),last:oa(function(a,b){return[b-1]}),eq:oa(function(a,b,c){return[0>c?c+b:c]}),even:oa(function(a,b){for(var c=0;b>c;c+=2)a.push(c);return a}),odd:oa(function(a,b){for(var c=1;b>c;c+=2)a.push(c);return a}),lt:oa(function(a,b,c){for(var d=0>c?c+b:c;--d>=0;)a.push(d);return a}),gt:oa(function(a,b,c){for(var d=0>c?c+b:c;++d<b;)a.push(d);return a})}},d.pseudos.nth=d.pseudos.eq;for(b in{radio:!0,checkbox:!0,file:!0,password:!0,image:!0})d.pseudos[b]=ma(b);for(b in{submit:!0,reset:!0})d.pseudos[b]=na(b);function qa(){}qa.prototype=d.filters=d.pseudos,d.setFilters=new qa,g=ga.tokenize=function(a,b){var c,e,f,g,h,i,j,k=z[a+" "];if(k)return b?0:k.slice(0);h=a,i=[],j=d.preFilter;while(h){(!c||(e=S.exec(h)))&&(e&&(h=h.slice(e[0].length)||h),i.push(f=[])),c=!1,(e=T.exec(h))&&(c=e.shift(),f.push({value:c,type:e[0].replace(R," ")}),h=h.slice(c.length));for(g in d.filter)!(e=X[g].exec(h))||j[g]&&!(e=j[g](e))||(c=e.shift(),f.push({value:c,type:g,matches:e}),h=h.slice(c.length));if(!c)break}return b?h.length:h?ga.error(a):z(a,i).slice(0)};function ra(a){for(var b=0,c=a.length,d="";c>b;b++)d+=a[b].value;return d}function sa(a,b,c){var d=b.dir,e=c&&"parentNode"===d,f=x++;return b.first?function(b,c,f){while(b=b[d])if(1===b.nodeType||e)return a(b,c,f)}:function(b,c,g){var h,i,j=[w,f];if(g){while(b=b[d])if((1===b.nodeType||e)&&a(b,c,g))return!0}else while(b=b[d])if(1===b.nodeType||e){if(i=b[u]||(b[u]={}),(h=i[d])&&h[0]===w&&h[1]===f)return j[2]=h[2];if(i[d]=j,j[2]=a(b,c,g))return!0}}}function ta(a){return a.length>1?function(b,c,d){var e=a.length;while(e--)if(!a[e](b,c,d))return!1;return!0}:a[0]}function ua(a,b,c){for(var d=0,e=b.length;e>d;d++)ga(a,b[d],c);return c}function va(a,b,c,d,e){for(var f,g=[],h=0,i=a.length,j=null!=b;i>h;h++)(f=a[h])&&(!c||c(f,d,e))&&(g.push(f),j&&b.push(h));return g}function wa(a,b,c,d,e,f){return d&&!d[u]&&(d=wa(d)),e&&!e[u]&&(e=wa(e,f)),ia(function(f,g,h,i){var j,k,l,m=[],n=[],o=g.length,p=f||ua(b||"*",h.nodeType?[h]:h,[]),q=!a||!f&&b?p:va(p,m,a,h,i),r=c?e||(f?a:o||d)?[]:g:q;if(c&&c(q,r,h,i),d){j=va(r,n),d(j,[],h,i),k=j.length;while(k--)(l=j[k])&&(r[n[k]]=!(q[n[k]]=l))}if(f){if(e||a){if(e){j=[],k=r.length;while(k--)(l=r[k])&&j.push(q[k]=l);e(null,r=[],j,i)}k=r.length;while(k--)(l=r[k])&&(j=e?J(f,l):m[k])>-1&&(f[j]=!(g[j]=l))}}else r=va(r===g?r.splice(o,r.length):r),e?e(null,g,r,i):H.apply(g,r)})}function xa(a){for(var b,c,e,f=a.length,g=d.relative[a[0].type],h=g||d.relative[" "],i=g?1:0,k=sa(function(a){return a===b},h,!0),l=sa(function(a){return J(b,a)>-1},h,!0),m=[function(a,c,d){var e=!g&&(d||c!==j)||((b=c).nodeType?k(a,c,d):l(a,c,d));return b=null,e}];f>i;i++)if(c=d.relative[a[i].type])m=[sa(ta(m),c)];else{if(c=d.filter[a[i].type].apply(null,a[i].matches),c[u]){for(e=++i;f>e;e++)if(d.relative[a[e].type])break;return wa(i>1&&ta(m),i>1&&ra(a.slice(0,i-1).concat({value:" "===a[i-2].type?"*":""})).replace(R,"$1"),c,e>i&&xa(a.slice(i,e)),f>e&&xa(a=a.slice(e)),f>e&&ra(a))}m.push(c)}return ta(m)}function ya(a,b){var c=b.length>0,e=a.length>0,f=function(f,g,h,i,k){var l,m,o,p=0,q="0",r=f&&[],s=[],t=j,u=f||e&&d.find.TAG("*",k),v=w+=null==t?1:Math.random()||.1,x=u.length;for(k&&(j=g!==n&&g);q!==x&&null!=(l=u[q]);q++){if(e&&l){m=0;while(o=a[m++])if(o(l,g,h)){i.push(l);break}k&&(w=v)}c&&((l=!o&&l)&&p--,f&&r.push(l))}if(p+=q,c&&q!==p){m=0;while(o=b[m++])o(r,s,g,h);if(f){if(p>0)while(q--)r[q]||s[q]||(s[q]=F.call(i));s=va(s)}H.apply(i,s),k&&!f&&s.length>0&&p+b.length>1&&ga.uniqueSort(i)}return k&&(w=v,j=t),r};return c?ia(f):f}return h=ga.compile=function(a,b){var c,d=[],e=[],f=A[a+" "];if(!f){b||(b=g(a)),c=b.length;while(c--)f=xa(b[c]),f[u]?d.push(f):e.push(f);f=A(a,ya(e,d)),f.selector=a}return f},i=ga.select=function(a,b,e,f){var i,j,k,l,m,n="function"==typeof a&&a,o=!f&&g(a=n.selector||a);if(e=e||[],1===o.length){if(j=o[0]=o[0].slice(0),j.length>2&&"ID"===(k=j[0]).type&&c.getById&&9===b.nodeType&&p&&d.relative[j[1].type]){if(b=(d.find.ID(k.matches[0].replace(ca,da),b)||[])[0],!b)return e;n&&(b=b.parentNode),a=a.slice(j.shift().value.length)}i=X.needsContext.test(a)?0:j.length;while(i--){if(k=j[i],d.relative[l=k.type])break;if((m=d.find[l])&&(f=m(k.matches[0].replace(ca,da),aa.test(j[0].type)&&pa(b.parentNode)||b))){if(j.splice(i,1),a=f.length&&ra(j),!a)return H.apply(e,f),e;break}}}return(n||h(a,o))(f,b,!p,e,aa.test(a)&&pa(b.parentNode)||b),e},c.sortStable=u.split("").sort(B).join("")===u,c.detectDuplicates=!!l,m(),c.sortDetached=ja(function(a){return 1&a.compareDocumentPosition(n.createElement("div"))}),ja(function(a){return a.innerHTML="<a href='#'></a>","#"===a.firstChild.getAttribute("href")})||ka("type|href|height|width",function(a,b,c){return c?void 0:a.getAttribute(b,"type"===b.toLowerCase()?1:2)}),c.attributes&&ja(function(a){return a.innerHTML="<input/>",a.firstChild.setAttribute("value",""),""===a.firstChild.getAttribute("value")})||ka("value",function(a,b,c){return c||"input"!==a.nodeName.toLowerCase()?void 0:a.defaultValue}),ja(function(a){return null==a.getAttribute("disabled")})||ka(K,function(a,b,c){var d;return c?void 0:a[b]===!0?b.toLowerCase():(d=a.getAttributeNode(b))&&d.specified?d.value:null}),ga}(a);m.find=s,m.expr=s.selectors,m.expr[":"]=m.expr.pseudos,m.unique=s.uniqueSort,m.text=s.getText,m.isXMLDoc=s.isXML,m.contains=s.contains;var t=m.expr.match.needsContext,u=/^<(\w+)\s*\/?>(?:<\/\1>|)$/,v=/^.[^:#\[\.,]*$/;function w(a,b,c){if(m.isFunction(b))return m.grep(a,function(a,d){return!!b.call(a,d,a)!==c});if(b.nodeType)return m.grep(a,function(a){return a===b!==c});if("string"==typeof b){if(v.test(b))return m.filter(b,a,c);b=m.filter(b,a)}return m.grep(a,function(a){return m.inArray(a,b)>=0!==c})}m.filter=function(a,b,c){var d=b[0];return c&&(a=":not("+a+")"),1===b.length&&1===d.nodeType?m.find.matchesSelector(d,a)?[d]:[]:m.find.matches(a,m.grep(b,function(a){return 1===a.nodeType}))},m.fn.extend({find:function(a){var b,c=[],d=this,e=d.length;if("string"!=typeof a)return this.pushStack(m(a).filter(function(){for(b=0;e>b;b++)if(m.contains(d[b],this))return!0}));for(b=0;e>b;b++)m.find(a,d[b],c);return c=this.pushStack(e>1?m.unique(c):c),c.selector=this.selector?this.selector+" "+a:a,c},filter:function(a){return this.pushStack(w(this,a||[],!1))},not:function(a){return this.pushStack(w(this,a||[],!0))},is:function(a){return!!w(this,"string"==typeof a&&t.test(a)?m(a):a||[],!1).length}});var x,y=a.document,z=/^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/,A=m.fn.init=function(a,b){var c,d;if(!a)return this;if("string"==typeof a){if(c="<"===a.charAt(0)&&">"===a.charAt(a.length-1)&&a.length>=3?[null,a,null]:z.exec(a),!c||!c[1]&&b)return!b||b.jquery?(b||x).find(a):this.constructor(b).find(a);if(c[1]){if(b=b instanceof m?b[0]:b,m.merge(this,m.parseHTML(c[1],b&&b.nodeType?b.ownerDocument||b:y,!0)),u.test(c[1])&&m.isPlainObject(b))for(c in b)m.isFunction(this[c])?this[c](b[c]):this.attr(c,b[c]);return this}if(d=y.getElementById(c[2]),d&&d.parentNode){if(d.id!==c[2])return x.find(a);this.length=1,this[0]=d}return this.context=y,this.selector=a,this}return a.nodeType?(this.context=this[0]=a,this.length=1,this):m.isFunction(a)?"undefined"!=typeof x.ready?x.ready(a):a(m):(void 0!==a.selector&&(this.selector=a.selector,this.context=a.context),m.makeArray(a,this))};A.prototype=m.fn,x=m(y);var B=/^(?:parents|prev(?:Until|All))/,C={children:!0,contents:!0,next:!0,prev:!0};m.extend({dir:function(a,b,c){var d=[],e=a[b];while(e&&9!==e.nodeType&&(void 0===c||1!==e.nodeType||!m(e).is(c)))1===e.nodeType&&d.push(e),e=e[b];return d},sibling:function(a,b){for(var c=[];a;a=a.nextSibling)1===a.nodeType&&a!==b&&c.push(a);return c}}),m.fn.extend({has:function(a){var b,c=m(a,this),d=c.length;return this.filter(function(){for(b=0;d>b;b++)if(m.contains(this,c[b]))return!0})},closest:function(a,b){for(var c,d=0,e=this.length,f=[],g=t.test(a)||"string"!=typeof a?m(a,b||this.context):0;e>d;d++)for(c=this[d];c&&c!==b;c=c.parentNode)if(c.nodeType<11&&(g?g.index(c)>-1:1===c.nodeType&&m.find.matchesSelector(c,a))){f.push(c);break}return this.pushStack(f.length>1?m.unique(f):f)},index:function(a){return a?"string"==typeof a?m.inArray(this[0],m(a)):m.inArray(a.jquery?a[0]:a,this):this[0]&&this[0].parentNode?this.first().prevAll().length:-1},add:function(a,b){return this.pushStack(m.unique(m.merge(this.get(),m(a,b))))},addBack:function(a){return this.add(null==a?this.prevObject:this.prevObject.filter(a))}});function D(a,b){do a=a[b];while(a&&1!==a.nodeType);return a}m.each({parent:function(a){var b=a.parentNode;return b&&11!==b.nodeType?b:null},parents:function(a){return m.dir(a,"parentNode")},parentsUntil:function(a,b,c){return m.dir(a,"parentNode",c)},next:function(a){return D(a,"nextSibling")},prev:function(a){return D(a,"previousSibling")},nextAll:function(a){return m.dir(a,"nextSibling")},prevAll:function(a){return m.dir(a,"previousSibling")},nextUntil:function(a,b,c){return m.dir(a,"nextSibling",c)},prevUntil:function(a,b,c){return m.dir(a,"previousSibling",c)},siblings:function(a){return m.sibling((a.parentNode||{}).firstChild,a)},children:function(a){return m.sibling(a.firstChild)},contents:function(a){return m.nodeName(a,"iframe")?a.contentDocument||a.contentWindow.document:m.merge([],a.childNodes)}},function(a,b){m.fn[a]=function(c,d){var e=m.map(this,b,c);return"Until"!==a.slice(-5)&&(d=c),d&&"string"==typeof d&&(e=m.filter(d,e)),this.length>1&&(C[a]||(e=m.unique(e)),B.test(a)&&(e=e.reverse())),this.pushStack(e)}});var E=/\S+/g,F={};function G(a){var b=F[a]={};return m.each(a.match(E)||[],function(a,c){b[c]=!0}),b}m.Callbacks=function(a){a="string"==typeof a?F[a]||G(a):m.extend({},a);var b,c,d,e,f,g,h=[],i=!a.once&&[],j=function(l){for(c=a.memory&&l,d=!0,f=g||0,g=0,e=h.length,b=!0;h&&e>f;f++)if(h[f].apply(l[0],l[1])===!1&&a.stopOnFalse){c=!1;break}b=!1,h&&(i?i.length&&j(i.shift()):c?h=[]:k.disable())},k={add:function(){if(h){var d=h.length;!function f(b){m.each(b,function(b,c){var d=m.type(c);"function"===d?a.unique&&k.has(c)||h.push(c):c&&c.length&&"string"!==d&&f(c)})}(arguments),b?e=h.length:c&&(g=d,j(c))}return this},remove:function(){return h&&m.each(arguments,function(a,c){var d;while((d=m.inArray(c,h,d))>-1)h.splice(d,1),b&&(e>=d&&e--,f>=d&&f--)}),this},has:function(a){return a?m.inArray(a,h)>-1:!(!h||!h.length)},empty:function(){return h=[],e=0,this},disable:function(){return h=i=c=void 0,this},disabled:function(){return!h},lock:function(){return i=void 0,c||k.disable(),this},locked:function(){return!i},fireWith:function(a,c){return!h||d&&!i||(c=c||[],c=[a,c.slice?c.slice():c],b?i.push(c):j(c)),this},fire:function(){return k.fireWith(this,arguments),this},fired:function(){return!!d}};return k},m.extend({Deferred:function(a){var b=[["resolve","done",m.Callbacks("once memory"),"resolved"],["reject","fail",m.Callbacks("once memory"),"rejected"],["notify","progress",m.Callbacks("memory")]],c="pending",d={state:function(){return c},always:function(){return e.done(arguments).fail(arguments),this},then:function(){var a=arguments;return m.Deferred(function(c){m.each(b,function(b,f){var g=m.isFunction(a[b])&&a[b];e[f[1]](function(){var a=g&&g.apply(this,arguments);a&&m.isFunction(a.promise)?a.promise().done(c.resolve).fail(c.reject).progress(c.notify):c[f[0]+"With"](this===d?c.promise():this,g?[a]:arguments)})}),a=null}).promise()},promise:function(a){return null!=a?m.extend(a,d):d}},e={};return d.pipe=d.then,m.each(b,function(a,f){var g=f[2],h=f[3];d[f[1]]=g.add,h&&g.add(function(){c=h},b[1^a][2].disable,b[2][2].lock),e[f[0]]=function(){return e[f[0]+"With"](this===e?d:this,arguments),this},e[f[0]+"With"]=g.fireWith}),d.promise(e),a&&a.call(e,e),e},when:function(a){var b=0,c=d.call(arguments),e=c.length,f=1!==e||a&&m.isFunction(a.promise)?e:0,g=1===f?a:m.Deferred(),h=function(a,b,c){return function(e){b[a]=this,c[a]=arguments.length>1?d.call(arguments):e,c===i?g.notifyWith(b,c):--f||g.resolveWith(b,c)}},i,j,k;if(e>1)for(i=new Array(e),j=new Array(e),k=new Array(e);e>b;b++)c[b]&&m.isFunction(c[b].promise)?c[b].promise().done(h(b,k,c)).fail(g.reject).progress(h(b,j,i)):--f;return f||g.resolveWith(k,c),g.promise()}});var H;m.fn.ready=function(a){return m.ready.promise().done(a),this},m.extend({isReady:!1,readyWait:1,holdReady:function(a){a?m.readyWait++:m.ready(!0)},ready:function(a){if(a===!0?!--m.readyWait:!m.isReady){if(!y.body)return setTimeout(m.ready);m.isReady=!0,a!==!0&&--m.readyWait>0||(H.resolveWith(y,[m]),m.fn.triggerHandler&&(m(y).triggerHandler("ready"),m(y).off("ready")))}}});function I(){y.addEventListener?(y.removeEventListener("DOMContentLoaded",J,!1),a.removeEventListener("load",J,!1)):(y.detachEvent("onreadystatechange",J),a.detachEvent("onload",J))}function J(){(y.addEventListener||"load"===event.type||"complete"===y.readyState)&&(I(),m.ready())}m.ready.promise=function(b){if(!H)if(H=m.Deferred(),"complete"===y.readyState)setTimeout(m.ready);else if(y.addEventListener)y.addEventListener("DOMContentLoaded",J,!1),a.addEventListener("load",J,!1);else{y.attachEvent("onreadystatechange",J),a.attachEvent("onload",J);var c=!1;try{c=null==a.frameElement&&y.documentElement}catch(d){}c&&c.doScroll&&!function e(){if(!m.isReady){try{c.doScroll("left")}catch(a){return setTimeout(e,50)}I(),m.ready()}}()}return H.promise(b)};var K="undefined",L;for(L in m(k))break;k.ownLast="0"!==L,k.inlineBlockNeedsLayout=!1,m(function(){var a,b,c,d;c=y.getElementsByTagName("body")[0],c&&c.style&&(b=y.createElement("div"),d=y.createElement("div"),d.style.cssText="position:absolute;border:0;width:0;height:0;top:0;left:-9999px",c.appendChild(d).appendChild(b),typeof b.style.zoom!==K&&(b.style.cssText="display:inline;margin:0;border:0;padding:1px;width:1px;zoom:1",k.inlineBlockNeedsLayout=a=3===b.offsetWidth,a&&(c.style.zoom=1)),c.removeChild(d))}),function(){var a=y.createElement("div");if(null==k.deleteExpando){k.deleteExpando=!0;try{delete a.test}catch(b){k.deleteExpando=!1}}a=null}(),m.acceptData=function(a){var b=m.noData[(a.nodeName+" ").toLowerCase()],c=+a.nodeType||1;return 1!==c&&9!==c?!1:!b||b!==!0&&a.getAttribute("classid")===b};var M=/^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,N=/([A-Z])/g;function O(a,b,c){if(void 0===c&&1===a.nodeType){var d="data-"+b.replace(N,"-$1").toLowerCase();if(c=a.getAttribute(d),"string"==typeof c){try{c="true"===c?!0:"false"===c?!1:"null"===c?null:+c+""===c?+c:M.test(c)?m.parseJSON(c):c}catch(e){}m.data(a,b,c)}else c=void 0}return c}function P(a){var b;for(b in a)if(("data"!==b||!m.isEmptyObject(a[b]))&&"toJSON"!==b)return!1;
@@ -1791,7 +1791,7 @@ summary {
 
 
 
-<h1 class="title toc-ignore">Logistic Regression: Multinom</h1>
+<h1 class="title toc-ignore">Logistic Regression: Multinom and OVA/AVA</h1>
 
 </div>
 
@@ -1818,6 +1818,8 @@ train_labels &lt;- read.csv(
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<div id="multinom-from-nnet" class="section level1">
+<h1>Multinom from NNet</h1>
 <p>We append the target variable to the full dataset, factor it and relevel it, a neccesary step for the multinom algorithm. Relevel simply makes one of the possible categories the “reference”.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
@@ -1859,47 +1861,6 @@ full_data$damage_grade = relevel(full_data$damage_grade, ref=1)</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYXR0YWNoKGZ1bGxfZGF0YSlcbmBgYCJ9 -->
 <pre class="r"><code>attach(full_data)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSBmdWxsX2RhdGEgKHBvcyA9IDMpOlxuXG4gICAgYWdlLCBhcmVhX3BlcmNlbnRhZ2UsIGJ1aWxkaW5nX2lkLCBjb3VudF9mYW1pbGllcywgY291bnRfZmxvb3JzX3ByZV9lcSxcbiAgICBkYW1hZ2VfZ3JhZGUsIGZvdW5kYXRpb25fdHlwZSwgZ2VvX2xldmVsXzFfaWQsIGdlb19sZXZlbF8yX2lkLFxuICAgIGdlb19sZXZlbF8zX2lkLCBncm91bmRfZmxvb3JfdHlwZSwgaGFzX3NlY29uZGFyeV91c2UsXG4gICAgaGFzX3NlY29uZGFyeV91c2VfYWdyaWN1bHR1cmUsIGhhc19zZWNvbmRhcnlfdXNlX2dvdl9vZmZpY2UsXG4gICAgaGFzX3NlY29uZGFyeV91c2VfaGVhbHRoX3Bvc3QsIGhhc19zZWNvbmRhcnlfdXNlX2hvdGVsLFxuICAgIGhhc19zZWNvbmRhcnlfdXNlX2luZHVzdHJ5LCBoYXNfc2Vjb25kYXJ5X3VzZV9pbnN0aXR1dGlvbixcbiAgICBoYXNfc2Vjb25kYXJ5X3VzZV9vdGhlciwgaGFzX3NlY29uZGFyeV91c2VfcmVudGFsLFxuICAgIGhhc19zZWNvbmRhcnlfdXNlX3NjaG9vbCwgaGFzX3NlY29uZGFyeV91c2VfdXNlX3BvbGljZSxcbiAgICBoYXNfc3VwZXJzdHJ1Y3R1cmVfYWRvYmVfbXVkLCBoYXNfc3VwZXJzdHJ1Y3R1cmVfYmFtYm9vLFxuICAgIGhhc19zdXBlcnN0cnVjdHVyZV9jZW1lbnRfbW9ydGFyX2JyaWNrLFxuICAgIGhhc19zdXBlcnN0cnVjdHVyZV9jZW1lbnRfbW9ydGFyX3N0b25lLFxuICAgIGhhc19zdXBlcnN0cnVjdHVyZV9tdWRfbW9ydGFyX2JyaWNrLCBoYXNfc3VwZXJzdHJ1Y3R1cmVfbXVkX21vcnRhcl9zdG9uZSxcbiAgICBoYXNfc3VwZXJzdHJ1Y3R1cmVfb3RoZXIsIGhhc19zdXBlcnN0cnVjdHVyZV9yY19lbmdpbmVlcmVkLFxuICAgIGhhc19zdXBlcnN0cnVjdHVyZV9yY19ub25fZW5naW5lZXJlZCwgaGFzX3N1cGVyc3RydWN0dXJlX3N0b25lX2ZsYWcsXG4gICAgaGFzX3N1cGVyc3RydWN0dXJlX3RpbWJlciwgaGVpZ2h0X3BlcmNlbnRhZ2UsIGxhbmRfc3VyZmFjZV9jb25kaXRpb24sXG4gICAgbGVnYWxfb3duZXJzaGlwX3N0YXR1cywgb3RoZXJfZmxvb3JfdHlwZSwgcGxhbl9jb25maWd1cmF0aW9uLCBwb3NpdGlvbixcbiAgICByb29mX3R5cGVcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSBmdWxsX2RhdGEgKHBvcyA9IDQpOlxuXG4gICAgYWdlLCBhcmVhX3BlcmNlbnRhZ2UsIGJ1aWxkaW5nX2lkLCBjb3VudF9mYW1pbGllcywgY291bnRfZmxvb3JzX3ByZV9lcSxcbiAgICBkYW1hZ2VfZ3JhZGUsIGZvdW5kYXRpb25fdHlwZSwgZ2VvX2xldmVsXzFfaWQsIGdlb19sZXZlbF8yX2lkLFxuICAgIGdlb19sZXZlbF8zX2lkLCBncm91bmRfZmxvb3JfdHlwZSwgaGFzX3NlY29uZGFyeV91c2UsXG4gICAgaGFzX3NlY29uZGFyeV91c2VfYWdyaWN1bHR1cmUsIGhhc19zZWNvbmRhcnlfdXNlX2dvdl9vZmZpY2UsXG4gICAgaGFzX3NlY29uZGFyeV91c2VfaGVhbHRoX3Bvc3QsIGhhc19zZWNvbmRhcnlfdXNlX2hvdGVsLFxuICAgIGhhc19zZWNvbmRhcnlfdXNlX2luZHVzdHJ5LCBoYXNfc2Vjb25kYXJ5X3VzZV9pbnN0aXR1dGlvbixcbiAgICBoYXNfc2Vjb25kYXJ5X3VzZV9vdGhlciwgaGFzX3NlY29uZGFyeV91c2VfcmVudGFsLFxuICAgIGhhc19zZWNvbmRhcnlfdXNlX3NjaG9vbCwgaGFzX3NlY29uZGFyeV91c2VfdXNlX3BvbGljZSxcbiAgICBoYXNfc3VwZXJzdHJ1Y3R1cmVfYWRvYmVfbXVkLCBoYXNfc3VwZXJzdHJ1Y3R1cmVfYmFtYm9vLFxuICAgIGhhc19zdXBlcnN0cnVjdHVyZV9jZW1lbnRfbW9ydGFyX2JyaWNrLFxuICAgIGhhc19zdXBlcnN0cnVjdHVyZV9jZW1lbnRfbW9ydGFyX3N0b25lLFxuICAgIGhhc19zdXBlcnN0cnVjdHVyZV9tdWRfbW9ydGFyX2JyaWNrLCBoYXNfc3VwZXJzdHJ1Y3R1cmVfbXVkX21vcnRhcl9zdG9uZSxcbiAgICBoYXNfc3VwZXJzdHJ1Y3R1cmVfb3RoZXIsIGhhc19zdXBlcnN0cnVjdHVyZV9yY19lbmdpbmVlcmVkLFxuICAgIGhhc19zdXBlcnN0cnVjdHVyZV9yY19ub25fZW5naW5lZXJlZCwgaGFzX3N1cGVyc3RydWN0dXJlX3N0b25lX2ZsYWcsXG4gICAgaGFzX3N1cGVyc3RydWN0dXJlX3RpbWJlciwgaGVpZ2h0X3BlcmNlbnRhZ2UsIGxhbmRfc3VyZmFjZV9jb25kaXRpb24sXG4gICAgbGVnYWxfb3duZXJzaGlwX3N0YXR1cywgb3RoZXJfZmxvb3JfdHlwZSwgcGxhbl9jb25maWd1cmF0aW9uLCBwb3NpdGlvbixcbiAgICByb29mX3R5cGVcbiJ9 -->
-<pre><code>The following objects are masked from full_data (pos = 3):
-
-    age, area_percentage, building_id, count_families, count_floors_pre_eq,
-    damage_grade, foundation_type, geo_level_1_id, geo_level_2_id,
-    geo_level_3_id, ground_floor_type, has_secondary_use,
-    has_secondary_use_agriculture, has_secondary_use_gov_office,
-    has_secondary_use_health_post, has_secondary_use_hotel,
-    has_secondary_use_industry, has_secondary_use_institution,
-    has_secondary_use_other, has_secondary_use_rental,
-    has_secondary_use_school, has_secondary_use_use_police,
-    has_superstructure_adobe_mud, has_superstructure_bamboo,
-    has_superstructure_cement_mortar_brick,
-    has_superstructure_cement_mortar_stone,
-    has_superstructure_mud_mortar_brick, has_superstructure_mud_mortar_stone,
-    has_superstructure_other, has_superstructure_rc_engineered,
-    has_superstructure_rc_non_engineered, has_superstructure_stone_flag,
-    has_superstructure_timber, height_percentage, land_surface_condition,
-    legal_ownership_status, other_floor_type, plan_configuration, position,
-    roof_type
-
-The following objects are masked from full_data (pos = 4):
-
-    age, area_percentage, building_id, count_families, count_floors_pre_eq,
-    damage_grade, foundation_type, geo_level_1_id, geo_level_2_id,
-    geo_level_3_id, ground_floor_type, has_secondary_use,
-    has_secondary_use_agriculture, has_secondary_use_gov_office,
-    has_secondary_use_health_post, has_secondary_use_hotel,
-    has_secondary_use_industry, has_secondary_use_institution,
-    has_secondary_use_other, has_secondary_use_rental,
-    has_secondary_use_school, has_secondary_use_use_police,
-    has_superstructure_adobe_mud, has_superstructure_bamboo,
-    has_superstructure_cement_mortar_brick,
-    has_superstructure_cement_mortar_stone,
-    has_superstructure_mud_mortar_brick, has_superstructure_mud_mortar_stone,
-    has_superstructure_other, has_superstructure_rc_engineered,
-    has_superstructure_rc_non_engineered, has_superstructure_stone_flag,
-    has_superstructure_timber, height_percentage, land_surface_condition,
-    legal_ownership_status, other_floor_type, plan_configuration, position,
-    roof_type</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>We’ll start with 10 000 rows and all variables.</p>
@@ -2110,19 +2071,409 @@ almost destructed                          NaN               0.3546700</code></p
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>This provided almost no difference, so it was not a bad decision since we have less information to process but the same result. That tells us that those variables were not explaining anything.</p>
+<p>This provided almost no difference, so it was not a bad decision since we have less information to process but the same result. That tells us that those variables were explaining nothing.</p>
 <p>Let’s keep subtracting variables and see what happens.</p>
 <p>Based on the p values obtained in the model, land_surface_condition had a very high score. That means that the confidence that those variables are related with our target is 1 - p, so it must be really small. Removing that variable would result in a, hopefully better accuracy, but, at least, no change in it. We’ll do that from now on, search for high p-value variables and remove them to see if we can improve the model’s accuracy.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGFuZF9zdXJmYWNlX2NvbmRpdGlvblxuYGBgIn0= -->
-<pre class="r"><code>land_surface_condition</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZm9ybXVsYSA9IGRhbWFnZV9ncmFkZSB+IC4gLWJ1aWxkaW5nX2lkIC0gXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgZ2VvX2xldmVsXzJfaWQgLSBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBnZW9fbGV2ZWxfM19pZCAtIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxhbmRfc3VyZmFjZV9jb25kaXRpb25cbiAgXG5hY2N1cmFjeTMgPSBwcmVkaWN0aW9uKG4sIGZvcm11bGEpXG5gYGAifQ== -->
+<pre class="r"><code>formula = damage_grade ~ . -building_id - 
+                            geo_level_2_id - 
+                            geo_level_3_id - 
+                            land_surface_condition
+  
+accuracy3 = prediction(n, formula)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiIyB3ZWlnaHRzOiAgMTc0ICgxMTQgdmFyaWFibGUpXG5pbml0aWFsICB2YWx1ZSAxMDk4Ni4xMjI4ODcgXG5pdGVyICAxMCB2YWx1ZSA5MDA3LjM3MTMyMlxuaXRlciAgMjAgdmFsdWUgODUzMi4wODg3NTdcbml0ZXIgIDMwIHZhbHVlIDgxMTcuMDI5MjE2XG5pdGVyICA0MCB2YWx1ZSA3OTM1Ljc4OTQyMlxuaXRlciAgNTAgdmFsdWUgNzg2Ny43OTA5OTFcbml0ZXIgIDYwIHZhbHVlIDc4NTQuNjczOTU0XG5pdGVyICA3MCB2YWx1ZSA3ODUyLjI4Mjg1OVxuaXRlciAgODAgdmFsdWUgNzg1MS4wOTQ0MThcbml0ZXIgIDkwIHZhbHVlIDc4NDkuNzIzMjU5XG5pdGVyIDEwMCB2YWx1ZSA3ODQ5LjE2MzE1M1xuZmluYWwgIHZhbHVlIDc4NDkuMTYzMTUzIFxuc3RvcHBlZCBhZnRlciAxMDAgaXRlcmF0aW9uc1xuIn0= -->
+<pre><code># weights:  174 (114 variable)
+initial  value 10986.122887 
+iter  10 value 9007.371322
+iter  20 value 8532.088757
+iter  30 value 8117.029216
+iter  40 value 7935.789422
+iter  50 value 7867.790991
+iter  60 value 7854.673954
+iter  70 value 7852.282859
+iter  80 value 7851.094418
+iter  90 value 7849.723259
+iter 100 value 7849.163153
+final  value 7849.163153 
+stopped after 100 iterations</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTmFOcyBwcm9kdWNlZE5hTnMgcHJvZHVjZWRcbiJ9 -->
+<pre><code>NaNs producedNaNs produced</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgICAgICAgICAgICAgIChJbnRlcmNlcHQpIGdlb19sZXZlbF8xX2lkIGNvdW50X2Zsb29yc19wcmVfZXEgICAgICAgIGFnZVxubWVkaXVtIGRhbWFnZSAgICAgMi4wMDM5MjFlLTAyICAgMy4xMjUyNzZlLTEwICAgICAgICAwLjEzNzI2ODc2NDIgMC4wODIzMDExM1xuYWxtb3N0IGRlc3RydWN0ZWQgNS41MjcxNThlLTA5ICAgNi4wNDMwNjllLTAyICAgICAgICAwLjAwMDI0MjMzMDkgMC4xNDg2MjcxMlxuICAgICAgICAgICAgICAgICAgYXJlYV9wZXJjZW50YWdlIGhlaWdodF9wZXJjZW50YWdlIGZvdW5kYXRpb25fdHlwZWkgZm91bmRhdGlvbl90eXBlclxubWVkaXVtIGRhbWFnZSAgICAgICAgICAgMC4zMDE1NzQ0ICAgICAgICAgMC4xODE1ODI0ICAgICAgICAwLjQ1NzI0OTUgICAgICAgMC4wNTcyMjc1NlxuYWxtb3N0IGRlc3RydWN0ZWQgICAgICAgMC44MTg0MTE0ICAgICAgICAgMC4yNjk5ODQyICAgICAgICAwLjM2MjIyODkgICAgICAgMC4xMDU4NDM4OVxuICAgICAgICAgICAgICAgICAgZm91bmRhdGlvbl90eXBldSBmb3VuZGF0aW9uX3R5cGV3ICAgcm9vZl90eXBlcSByb29mX3R5cGV4XG5tZWRpdW0gZGFtYWdlICAgICAgICAgICAwLjA0MDA1NjEzICAgICAgIDAuMzMzOTM4NzQgNS45OTgyNjllLTAzIDAuMjUzNzkyODRcbmFsbW9zdCBkZXN0cnVjdGVkICAgICAgIDAuMzEzMzI3NTkgICAgICAgMC4wMzIwMTA4MyAxLjE2NjM2NGUtMDYgMC4wMzk3MDQxNlxuICAgICAgICAgICAgICAgICAgZ3JvdW5kX2Zsb29yX3R5cGVtIGdyb3VuZF9mbG9vcl90eXBldiBncm91bmRfZmxvb3JfdHlwZXhcbm1lZGl1bSBkYW1hZ2UgICAgICAgICAgICAgIDAuMjQ4MDYxNCAgICAgICAxLjUyMzQ3OGUtMDEgICAgICAgICAgMC45NzkxNTgxXG5hbG1vc3QgZGVzdHJ1Y3RlZCAgICAgICAgICAwLjc5NjgwMTcgICAgICAgMi45NTkxMjZlLTA2ICAgICAgICAgIDAuOTIwNjQyOFxuICAgICAgICAgICAgICAgICAgZ3JvdW5kX2Zsb29yX3R5cGV6IG90aGVyX2Zsb29yX3R5cGVxIG90aGVyX2Zsb29yX3R5cGVzXG5tZWRpdW0gZGFtYWdlICAgICAgICAgICAgICAwLjc5MjQ4NTcgICAgICAgMC4wMDI5NTQ0MTMgICAgICAgMC4wMDU3Mzk3MDRcbmFsbW9zdCBkZXN0cnVjdGVkICAgICAgICAgIDAuNDg3NDExMSAgICAgICAwLjY2MDU0NTkxMiAgICAgICAwLjAxNTA2MDUxNFxuICAgICAgICAgICAgICAgICAgb3RoZXJfZmxvb3JfdHlwZXggcG9zaXRpb25vIHBvc2l0aW9ucyAgIHBvc2l0aW9udFxubWVkaXVtIGRhbWFnZSAgICAgICAgICAgIDAuMDYwNTY0MzggMC45MTYwMTg4IDAuMTI5NDIxOSAwLjMzMjg4NDM5OVxuYWxtb3N0IGRlc3RydWN0ZWQgICAgICAgIDAuNjU4Nzc5NzQgMC44NzQzODU3IDAuNDk5NDM5NCAwLjAwMTk3ODgzMVxuICAgICAgICAgICAgICAgICAgcGxhbl9jb25maWd1cmF0aW9uYyBwbGFuX2NvbmZpZ3VyYXRpb25kIHBsYW5fY29uZmlndXJhdGlvbmZcbm1lZGl1bSBkYW1hZ2UgICAgICAgICAgICAgIDAuMDQwMzA3MjIgICAgICAgIDEuNDY0NzY2ZS0wMyAgICAgICAgICAgICAgICAgICAwXG5hbG1vc3QgZGVzdHJ1Y3RlZCAgICAgICAgICAwLjAwMDAwMDAwICAgICAgICAyLjM3NTI5OGUtMDkgICAgICAgICAgICAgICAgICAgMFxuICAgICAgICAgICAgICAgICAgcGxhbl9jb25maWd1cmF0aW9ubSBwbGFuX2NvbmZpZ3VyYXRpb25uIHBsYW5fY29uZmlndXJhdGlvbm9cbm1lZGl1bSBkYW1hZ2UgICAgICAgICAgICAgICAwLjcxMzAxODIgICAgICAgICAgICAgICAgICAgMCAgICAgICAgICAgMC40NDkyMDU3XG5hbG1vc3QgZGVzdHJ1Y3RlZCAgICAgICAgICAgMC4wMDAwMDAwICAgICAgICAgICAgICAgICAgIDAgICAgICAgICAgIDAuMTcyNjM3MlxuICAgICAgICAgICAgICAgICAgcGxhbl9jb25maWd1cmF0aW9ucSBwbGFuX2NvbmZpZ3VyYXRpb25zIHBsYW5fY29uZmlndXJhdGlvbnVcbm1lZGl1bSBkYW1hZ2UgICAgICAgICAgICAzLjA5MjI3M2UtMDMgICAgICAgICAwLjA0OTgzNDAyNCAgICAgICAgICAgMC4yNTIxMDIyXG5hbG1vc3QgZGVzdHJ1Y3RlZCAgICAgICAgNi44MDYzMDBlLTEwICAgICAgICAgMC4wMDUzNzYyNDggICAgICAgICAgIDAuMTUzOTc4OFxuICAgICAgICAgICAgICAgICAgaGFzX3N1cGVyc3RydWN0dXJlX2Fkb2JlX211ZCBoYXNfc3VwZXJzdHJ1Y3R1cmVfbXVkX21vcnRhcl9zdG9uZVxubWVkaXVtIGRhbWFnZSAgICAgICAgICAgICAgICAgICAgIDEuNjk2Mjc1ZS0wNSAgICAgICAgICAgICAgICAgICAgICAgIDIuNjg2NzQwZS0xNFxuYWxtb3N0IGRlc3RydWN0ZWQgICAgICAgICAgICAgICAgIDIuMDcwMTE4ZS0wNSAgICAgICAgICAgICAgICAgICAgICAgIDIuMjIwNDQ2ZS0xNVxuICAgICAgICAgICAgICAgICAgaGFzX3N1cGVyc3RydWN0dXJlX3N0b25lX2ZsYWcgaGFzX3N1cGVyc3RydWN0dXJlX2NlbWVudF9tb3J0YXJfc3RvbmVcbm1lZGl1bSBkYW1hZ2UgICAgICAgICAgICAgICAgICAgICAgMi4yMjY1MThlLTAzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwLjQxNzM1MzY4XG5hbG1vc3QgZGVzdHJ1Y3RlZCAgICAgICAgICAgICAgICAgIDQuNzk0NjUxZS0wNiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMC4wNDY5MDY5MVxuICAgICAgICAgICAgICAgICAgaGFzX3N1cGVyc3RydWN0dXJlX211ZF9tb3J0YXJfYnJpY2tcbm1lZGl1bSBkYW1hZ2UgICAgICAgICAgICAgICAgICAgICAgICAgICAgMS44Nzc3NDFlLTA1XG5hbG1vc3QgZGVzdHJ1Y3RlZCAgICAgICAgICAgICAgICAgICAgICAgIDMuMzY3ODYyZS0wM1xuICAgICAgICAgICAgICAgICAgaGFzX3N1cGVyc3RydWN0dXJlX2NlbWVudF9tb3J0YXJfYnJpY2sgaGFzX3N1cGVyc3RydWN0dXJlX3RpbWJlclxubWVkaXVtIGRhbWFnZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA1LjAzMjgyM2UtMDEgICAgICAgICAgICAgIDAuMDY4OTk4NTk0MVxuYWxtb3N0IGRlc3RydWN0ZWQgICAgICAgICAgICAgICAgICAgICAgICAgICA4LjA4MzAwOWUtMDggICAgICAgICAgICAgIDAuMDAwMTA4NjQxOVxuICAgICAgICAgICAgICAgICAgaGFzX3N1cGVyc3RydWN0dXJlX2JhbWJvbyBoYXNfc3VwZXJzdHJ1Y3R1cmVfcmNfbm9uX2VuZ2luZWVyZWRcbm1lZGl1bSBkYW1hZ2UgICAgICAgICAgICAgICAgICAgIDAuNDExNjg3MzMgICAgICAgICAgICAgICAgICAgICAgICAgIDAuMTAyODY0ODIyXG5hbG1vc3QgZGVzdHJ1Y3RlZCAgICAgICAgICAgICAgICAwLjAzNjA0NTk1ICAgICAgICAgICAgICAgICAgICAgICAgICAwLjAwODE3NjcxOFxuICAgICAgICAgICAgICAgICAgaGFzX3N1cGVyc3RydWN0dXJlX3JjX2VuZ2luZWVyZWQgaGFzX3N1cGVyc3RydWN0dXJlX290aGVyXG5tZWRpdW0gZGFtYWdlICAgICAgICAgICAgICAgICAgICAgICAgICAwLjAwOTYxNTMyMiAgICAgICAgICAgICAgICAwLjg5MDAyOTZcbmFsbW9zdCBkZXN0cnVjdGVkICAgICAgICAgICAgICAgICAgICAgIDAuMTE0MzM0NDQwICAgICAgICAgICAgICAgIDAuOTE4MzM4OVxuICAgICAgICAgICAgICAgICAgbGVnYWxfb3duZXJzaGlwX3N0YXR1c3IgbGVnYWxfb3duZXJzaGlwX3N0YXR1c3Zcbm1lZGl1bSBkYW1hZ2UgICAgICAgICAgICAgICAgICAgMC41ODc1Nzc2ICAgICAgICAgICAgICAgMC4zMDg4NzM5XG5hbG1vc3QgZGVzdHJ1Y3RlZCAgICAgICAgICAgICAgIDAuMzY5MDUxOSAgICAgICAgICAgICAgIDAuNDgzNTUzNlxuICAgICAgICAgICAgICAgICAgbGVnYWxfb3duZXJzaGlwX3N0YXR1c3cgY291bnRfZmFtaWxpZXMgaGFzX3NlY29uZGFyeV91c2Vcbm1lZGl1bSBkYW1hZ2UgICAgICAgICAgICAgICAgICAgMC42OTUyNjg1ICAgNS44MDY3MzZlLTA3ICAgICAgICAgICAgICAgICAwXG5hbG1vc3QgZGVzdHJ1Y3RlZCAgICAgICAgICAgICAgIDAuMjExMTg4NSAgIDMuNTU3NzgyZS0wNyAgICAgICAgICAgICAgICAgMFxuICAgICAgICAgICAgICAgICAgaGFzX3NlY29uZGFyeV91c2VfYWdyaWN1bHR1cmUgaGFzX3NlY29uZGFyeV91c2VfaG90ZWxcbm1lZGl1bSBkYW1hZ2UgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwICAgICAgICAgICAgICAgICAgICAgICAwXG5hbG1vc3QgZGVzdHJ1Y3RlZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMCAgICAgICAgICAgICAgICAgICAgICAgMFxuICAgICAgICAgICAgICAgICAgaGFzX3NlY29uZGFyeV91c2VfcmVudGFsIGhhc19zZWNvbmRhcnlfdXNlX2luc3RpdHV0aW9uXG5tZWRpdW0gZGFtYWdlICAgICAgICAgICAgICAgICAgICAgICAgICAgIDAgICAgICAgICAgICAgICAgICAwLjAwMDAwMGUrMDBcbmFsbW9zdCBkZXN0cnVjdGVkICAgICAgICAgICAgICAgICAgICAgICAgMCAgICAgICAgICAgICAgICAgIDUuMjEwMjM3ZS0xMFxuICAgICAgICAgICAgICAgICAgaGFzX3NlY29uZGFyeV91c2Vfc2Nob29sIGhhc19zZWNvbmRhcnlfdXNlX2luZHVzdHJ5XG5tZWRpdW0gZGFtYWdlICAgICAgICAgICAgICAgICAgICAgICAgICAgIDAgICAgICAgICAgICAgICAzLjcwODE0NWUtMTRcbmFsbW9zdCBkZXN0cnVjdGVkICAgICAgICAgICAgICAgICAgICAgICAgMCAgICAgICAgICAgICAgIDEuMzU5MzY1ZS0wNlxuICAgICAgICAgICAgICAgICAgaGFzX3NlY29uZGFyeV91c2VfaGVhbHRoX3Bvc3QgaGFzX3NlY29uZGFyeV91c2VfZ292X29mZmljZVxubWVkaXVtIGRhbWFnZSAgICAgICAgICAgICAgICAgICAgICA0LjQzMDgxNWUtMDkgICAgICAgICAgICAgICAgICAgICAgICAgIE5hTlxuYWxtb3N0IGRlc3RydWN0ZWQgICAgICAgICAgICAgICAgICAwLjAwMDAwMGUrMDAgICAgICAgICAgICAgICAgICAgICAgICAgIE5hTlxuICAgICAgICAgICAgICAgICAgaGFzX3NlY29uZGFyeV91c2VfdXNlX3BvbGljZSBoYXNfc2Vjb25kYXJ5X3VzZV9vdGhlclxubWVkaXVtIGRhbWFnZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE5hTiAgICAgICAgICAgICAgIDAuMTI3NzU5MFxuYWxtb3N0IGRlc3RydWN0ZWQgICAgICAgICAgICAgICAgICAgICAgICAgIE5hTiAgICAgICAgICAgICAgIDAuMzAyNTYwOVxuIn0= -->
+<pre><code>                   (Intercept) geo_level_1_id count_floors_pre_eq        age
+medium damage     2.003921e-02   3.125276e-10        0.1372687642 0.08230113
+almost destructed 5.527158e-09   6.043069e-02        0.0002423309 0.14862712
+                  area_percentage height_percentage foundation_typei foundation_typer
+medium damage           0.3015744         0.1815824        0.4572495       0.05722756
+almost destructed       0.8184114         0.2699842        0.3622289       0.10584389
+                  foundation_typeu foundation_typew   roof_typeq roof_typex
+medium damage           0.04005613       0.33393874 5.998269e-03 0.25379284
+almost destructed       0.31332759       0.03201083 1.166364e-06 0.03970416
+                  ground_floor_typem ground_floor_typev ground_floor_typex
+medium damage              0.2480614       1.523478e-01          0.9791581
+almost destructed          0.7968017       2.959126e-06          0.9206428
+                  ground_floor_typez other_floor_typeq other_floor_types
+medium damage              0.7924857       0.002954413       0.005739704
+almost destructed          0.4874111       0.660545912       0.015060514
+                  other_floor_typex positiono positions   positiont
+medium damage            0.06056438 0.9160188 0.1294219 0.332884399
+almost destructed        0.65877974 0.8743857 0.4994394 0.001978831
+                  plan_configurationc plan_configurationd plan_configurationf
+medium damage              0.04030722        1.464766e-03                   0
+almost destructed          0.00000000        2.375298e-09                   0
+                  plan_configurationm plan_configurationn plan_configurationo
+medium damage               0.7130182                   0           0.4492057
+almost destructed           0.0000000                   0           0.1726372
+                  plan_configurationq plan_configurations plan_configurationu
+medium damage            3.092273e-03         0.049834024           0.2521022
+almost destructed        6.806300e-10         0.005376248           0.1539788
+                  has_superstructure_adobe_mud has_superstructure_mud_mortar_stone
+medium damage                     1.696275e-05                        2.686740e-14
+almost destructed                 2.070118e-05                        2.220446e-15
+                  has_superstructure_stone_flag has_superstructure_cement_mortar_stone
+medium damage                      2.226518e-03                             0.41735368
+almost destructed                  4.794651e-06                             0.04690691
+                  has_superstructure_mud_mortar_brick
+medium damage                            1.877741e-05
+almost destructed                        3.367862e-03
+                  has_superstructure_cement_mortar_brick has_superstructure_timber
+medium damage                               5.032823e-01              0.0689985941
+almost destructed                           8.083009e-08              0.0001086419
+                  has_superstructure_bamboo has_superstructure_rc_non_engineered
+medium damage                    0.41168733                          0.102864822
+almost destructed                0.03604595                          0.008176718
+                  has_superstructure_rc_engineered has_superstructure_other
+medium damage                          0.009615322                0.8900296
+almost destructed                      0.114334440                0.9183389
+                  legal_ownership_statusr legal_ownership_statusv
+medium damage                   0.5875776               0.3088739
+almost destructed               0.3690519               0.4835536
+                  legal_ownership_statusw count_families has_secondary_use
+medium damage                   0.6952685   5.806736e-07                 0
+almost destructed               0.2111885   3.557782e-07                 0
+                  has_secondary_use_agriculture has_secondary_use_hotel
+medium damage                                 0                       0
+almost destructed                             0                       0
+                  has_secondary_use_rental has_secondary_use_institution
+medium damage                            0                  0.000000e+00
+almost destructed                        0                  5.210237e-10
+                  has_secondary_use_school has_secondary_use_industry
+medium damage                            0               3.708145e-14
+almost destructed                        0               1.359365e-06
+                  has_secondary_use_health_post has_secondary_use_gov_office
+medium damage                      4.430815e-09                          NaN
+almost destructed                  0.000000e+00                          NaN
+                  has_secondary_use_use_police has_secondary_use_other
+medium damage                              NaN               0.1277590
+almost destructed                          NaN               0.3025609</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYWNjdXJhY3kzXG5gYGAifQ== -->
+<pre class="r"><code>accuracy3</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuNTkyN1xuIn0= -->
+<pre><code>[1] 0.5927</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>For the sake of common sense, political variables like legal_ownership_status o the has_secondary_use_* family would probably not add much to the concept of a building being able to deal with an earthquake, so lets remove them. Some of these variables are also categorical, so we are removing much more than it seems, since the model tries with every possible combination.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZm9ybXVsYSA9IGRhbWFnZV9ncmFkZSB+IC4gLWJ1aWxkaW5nX2lkIC0gXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgZ2VvX2xldmVsXzJfaWQgLSBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBnZW9fbGV2ZWxfM19pZCAtIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxhbmRfc3VyZmFjZV9jb25kaXRpb24gLVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxlZ2FsX293bmVyc2hpcF9zdGF0dXMgLVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIGhhc19zZWNvbmRhcnlfdXNlX2luc3RpdHV0aW9uIC1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBoYXNfc2Vjb25kYXJ5X3VzZV9oZWFsdGhfcG9zdCAtXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgaGFzX3NlY29uZGFyeV91c2VfdXNlX3BvbGljZSAtXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgaGFzX3NlY29uZGFyeV91c2Vfb3RoZXJcbiAgXG5hY2N1cmFjeTQgPSBwcmVkaWN0aW9uKG4sIGZvcm11bGEpXG5gYGAifQ== -->
+<pre class="r"><code>formula = damage_grade ~ . -building_id - 
+                            geo_level_2_id - 
+                            geo_level_3_id - 
+                            land_surface_condition -
+                            legal_ownership_status -
+                            has_secondary_use_institution -
+                            has_secondary_use_health_post -
+                            has_secondary_use_use_police -
+                            has_secondary_use_other
+  
+accuracy4 = prediction(n, formula)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiIyB3ZWlnaHRzOiAgMTUzICgxMDAgdmFyaWFibGUpXG5pbml0aWFsICB2YWx1ZSAxMDk4Ni4xMjI4ODcgXG5pdGVyICAxMCB2YWx1ZSA5MDEzLjk5MDM0MVxuaXRlciAgMjAgdmFsdWUgODYyMy42ODIwNDVcbml0ZXIgIDMwIHZhbHVlIDgxNDkuNjY2OTU1XG5pdGVyICA0MCB2YWx1ZSA3OTQ2LjI5MDQ2MlxuaXRlciAgNTAgdmFsdWUgNzg3NC4wMDExMTJcbml0ZXIgIDYwIHZhbHVlIDc4NjQuOTI2ODQ5XG5pdGVyICA3MCB2YWx1ZSA3ODYyLjc4MTIyM1xuaXRlciAgODAgdmFsdWUgNzg2Mi40NDA2OTBcbml0ZXIgIDkwIHZhbHVlIDc4NjIuMzI4Njg4XG5pdGVyIDEwMCB2YWx1ZSA3ODYyLjIzODQ1M1xuZmluYWwgIHZhbHVlIDc4NjIuMjM4NDUzIFxuc3RvcHBlZCBhZnRlciAxMDAgaXRlcmF0aW9uc1xuIn0= -->
+<pre><code># weights:  153 (100 variable)
+initial  value 10986.122887 
+iter  10 value 9013.990341
+iter  20 value 8623.682045
+iter  30 value 8149.666955
+iter  40 value 7946.290462
+iter  50 value 7874.001112
+iter  60 value 7864.926849
+iter  70 value 7862.781223
+iter  80 value 7862.440690
+iter  90 value 7862.328688
+iter 100 value 7862.238453
+final  value 7862.238453 
+stopped after 100 iterations</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTmFOcyBwcm9kdWNlZE5hTnMgcHJvZHVjZWRcbiJ9 -->
+<pre><code>NaNs producedNaNs produced</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgICAgICAgICAgICAgIChJbnRlcmNlcHQpIGdlb19sZXZlbF8xX2lkIGNvdW50X2Zsb29yc19wcmVfZXEgICAgICAgIGFnZVxubWVkaXVtIGRhbWFnZSAgICAgOC42NDkwNjJlLTAzICAgNC41NzczOThlLTEwICAgICAgICAwLjE0MDU3MzI1NjIgMC4wNzkzODkwMlxuYWxtb3N0IGRlc3RydWN0ZWQgMS45NDg5MjhlLTEwICAgNi42OTY3MTBlLTAyICAgICAgICAwLjAwMDI2ODU5MDUgMC4xMzc0NTEzNFxuICAgICAgICAgICAgICAgICAgYXJlYV9wZXJjZW50YWdlIGhlaWdodF9wZXJjZW50YWdlIGZvdW5kYXRpb25fdHlwZWkgZm91bmRhdGlvbl90eXBlclxubWVkaXVtIGRhbWFnZSAgICAgICAgICAgMC4zNDk2MzQ5ICAgICAgICAgMC4yMDU3NDI1ICAgICAgICAwLjQ3MjAzNzEgICAgICAgMC4wNTg2Nzc3NlxuYWxtb3N0IGRlc3RydWN0ZWQgICAgICAgMC43MjI2NjczICAgICAgICAgMC4zMDYyMzQ3ICAgICAgICAwLjM1NTM4NTUgICAgICAgMC4xMDg2MjQ4NFxuICAgICAgICAgICAgICAgICAgZm91bmRhdGlvbl90eXBldSBmb3VuZGF0aW9uX3R5cGV3ICAgcm9vZl90eXBlcSByb29mX3R5cGV4XG5tZWRpdW0gZGFtYWdlICAgICAgICAgICAwLjA0MzQ1NTMyICAgICAgIDAuMzMwMjEyMDQgNi43MjQ5ODZlLTAzICAwLjIxNjg2ODZcbmFsbW9zdCBkZXN0cnVjdGVkICAgICAgIDAuMzMxOTA4MjIgICAgICAgMC4wMzE4OTE0NyAxLjM4ODY4OGUtMDYgIDAuMDMxMDA2MFxuICAgICAgICAgICAgICAgICAgZ3JvdW5kX2Zsb29yX3R5cGVtIGdyb3VuZF9mbG9vcl90eXBldiBncm91bmRfZmxvb3JfdHlwZXhcbm1lZGl1bSBkYW1hZ2UgICAgICAgICAgICAgIDAuMjMzMTkxOSAgICAgICAxLjQzNDk4MGUtMDEgICAgICAgICAgMC45OTg4MTkxXG5hbG1vc3QgZGVzdHJ1Y3RlZCAgICAgICAgICAwLjc4MjU4NzQgICAgICAgMi4yMzg2MzJlLTA2ICAgICAgICAgIDAuODg2MDkwMVxuICAgICAgICAgICAgICAgICAgZ3JvdW5kX2Zsb29yX3R5cGV6IG90aGVyX2Zsb29yX3R5cGVxIG90aGVyX2Zsb29yX3R5cGVzXG5tZWRpdW0gZGFtYWdlICAgICAgICAgICAgICAwLjc5OTY0MDEgICAgICAgMC4wMDI4MDA5MDUgICAgICAgMC4wMDU0NzY3NTdcbmFsbW9zdCBkZXN0cnVjdGVkICAgICAgICAgIDAuNDg1MTYwNyAgICAgICAwLjY0MTY0Njk4MSAgICAgICAwLjAxNDAwNjg4MFxuICAgICAgICAgICAgICAgICAgb3RoZXJfZmxvb3JfdHlwZXggcG9zaXRpb25vIHBvc2l0aW9ucyAgIHBvc2l0aW9udFxubWVkaXVtIGRhbWFnZSAgICAgICAgICAgIDAuMDYyMjQ2MjIgMC44ODEwNjMyIDAuMTMwMjk3MCAwLjMyNzUzMDUzN1xuYWxtb3N0IGRlc3RydWN0ZWQgICAgICAgIDAuNjg3OTYxNTkgMC44NTU0Mjk0IDAuNDY1MTczNiAwLjAwMjIwMTk3MVxuICAgICAgICAgICAgICAgICAgcGxhbl9jb25maWd1cmF0aW9uYyBwbGFuX2NvbmZpZ3VyYXRpb25kIHBsYW5fY29uZmlndXJhdGlvbmZcbm1lZGl1bSBkYW1hZ2UgICAgICAgICAgICAgIDAuMDM5MjEyODUgICAgICAgIDEuMzg0MzY1ZS0wMyAgICAgICAgICAgICAgICAgICAwXG5hbG1vc3QgZGVzdHJ1Y3RlZCAgICAgICAgICAwLjAwMDAwMDAwICAgICAgICA3Ljg2NDMyN2UtMTAgICAgICAgICAgICAgICAgICAgMFxuICAgICAgICAgICAgICAgICAgcGxhbl9jb25maWd1cmF0aW9ubSBwbGFuX2NvbmZpZ3VyYXRpb25uIHBsYW5fY29uZmlndXJhdGlvbm9cbm1lZGl1bSBkYW1hZ2UgICAgICAgICAgICAgICAwLjY1ODM5NzggICAgICAgICAgICAgICAgICAgMCAgICAgICAgICAgMC40MTQyOTE4XG5hbG1vc3QgZGVzdHJ1Y3RlZCAgICAgICAgICAgMC4wMDAwMDAwICAgICAgICAgICAgICAgICAgIDAgICAgICAgICAgIDAuMTQyNDI5M1xuICAgICAgICAgICAgICAgICAgcGxhbl9jb25maWd1cmF0aW9ucSBwbGFuX2NvbmZpZ3VyYXRpb25zIHBsYW5fY29uZmlndXJhdGlvbnVcbm1lZGl1bSBkYW1hZ2UgICAgICAgICAgICAzLjg4MTc5NmUtMDMgICAgICAgICAwLjA0NTQ0NDUzNCAgICAgICAgICAgMC4yNTUxOTg1XG5hbG1vc3QgZGVzdHJ1Y3RlZCAgICAgICAgNC4xOTk1MjNlLTEwICAgICAgICAgMC4wMDQ1NzI2NDQgICAgICAgICAgIDAuMTI1NDI0NFxuICAgICAgICAgICAgICAgICAgaGFzX3N1cGVyc3RydWN0dXJlX2Fkb2JlX211ZCBoYXNfc3VwZXJzdHJ1Y3R1cmVfbXVkX21vcnRhcl9zdG9uZVxubWVkaXVtIGRhbWFnZSAgICAgICAgICAgICAgICAgICAgIDEuODg5MTk1ZS0wNSAgICAgICAgICAgICAgICAgICAgICAgIDUuMzUxMjc1ZS0xNFxuYWxtb3N0IGRlc3RydWN0ZWQgICAgICAgICAgICAgICAgIDEuODU0NTc5ZS0wNSAgICAgICAgICAgICAgICAgICAgICAgIDUuNTUxMTE1ZS0xNVxuICAgICAgICAgICAgICAgICAgaGFzX3N1cGVyc3RydWN0dXJlX3N0b25lX2ZsYWcgaGFzX3N1cGVyc3RydWN0dXJlX2NlbWVudF9tb3J0YXJfc3RvbmVcbm1lZGl1bSBkYW1hZ2UgICAgICAgICAgICAgICAgICAgICAgIDIuMjQyOTdlLTAzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwLjQxNTU1ODQxXG5hbG1vc3QgZGVzdHJ1Y3RlZCAgICAgICAgICAgICAgICAgICA1LjQ0NDUyZS0wNiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMC4wNDQzMjg0OVxuICAgICAgICAgICAgICAgICAgaGFzX3N1cGVyc3RydWN0dXJlX211ZF9tb3J0YXJfYnJpY2tcbm1lZGl1bSBkYW1hZ2UgICAgICAgICAgICAgICAgICAgICAgICAgICAgMC4wMDAwMTU3NTYzXG5hbG1vc3QgZGVzdHJ1Y3RlZCAgICAgICAgICAgICAgICAgICAgICAgIDAuMDAzMDIzNjA0N1xuICAgICAgICAgICAgICAgICAgaGFzX3N1cGVyc3RydWN0dXJlX2NlbWVudF9tb3J0YXJfYnJpY2sgaGFzX3N1cGVyc3RydWN0dXJlX3RpbWJlclxubWVkaXVtIGRhbWFnZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA1LjYwNTM4OGUtMDEgICAgICAgICAgICAgIDAuMDgxOTM0MjcwNFxuYWxtb3N0IGRlc3RydWN0ZWQgICAgICAgICAgICAgICAgICAgICAgICAgICAxLjAzNzk4N2UtMDcgICAgICAgICAgICAgIDAuMDAwMTE5Mjg3N1xuICAgICAgICAgICAgICAgICAgaGFzX3N1cGVyc3RydWN0dXJlX2JhbWJvbyBoYXNfc3VwZXJzdHJ1Y3R1cmVfcmNfbm9uX2VuZ2luZWVyZWRcbm1lZGl1bSBkYW1hZ2UgICAgICAgICAgICAgICAgICAgIDAuMzc5MDMwMDggICAgICAgICAgICAgICAgICAgICAgICAgIDAuMDk0MzkzNjE4XG5hbG1vc3QgZGVzdHJ1Y3RlZCAgICAgICAgICAgICAgICAwLjAzMzE2MjI5ICAgICAgICAgICAgICAgICAgICAgICAgICAwLjAwNjc2NjEzNFxuICAgICAgICAgICAgICAgICAgaGFzX3N1cGVyc3RydWN0dXJlX3JjX2VuZ2luZWVyZWQgaGFzX3N1cGVyc3RydWN0dXJlX290aGVyXG5tZWRpdW0gZGFtYWdlICAgICAgICAgICAgICAgICAgICAgICAgICAwLjAwODk5MzAzOCAgICAgICAgICAgICAgICAwLjg5ODY2NDFcbmFsbW9zdCBkZXN0cnVjdGVkICAgICAgICAgICAgICAgICAgICAgIDAuMTE4NDk0OTE2ICAgICAgICAgICAgICAgIDAuOTIyODE4NVxuICAgICAgICAgICAgICAgICAgY291bnRfZmFtaWxpZXMgaGFzX3NlY29uZGFyeV91c2UgaGFzX3NlY29uZGFyeV91c2VfYWdyaWN1bHR1cmVcbm1lZGl1bSBkYW1hZ2UgICAgICAgNy42MDQ5NThlLTA3ICAgICAgICAwLjA0NDk0NTQzICAgICAgICAgICAgICAgICAgICAgMC44OTg1MzA5XG5hbG1vc3QgZGVzdHJ1Y3RlZCAgIDIuNTU3NTAyZS0wNyAgICAgICAgMC43NjQxNzUyOCAgICAgICAgICAgICAgICAgICAgIDAuMTQyMTgzNVxuICAgICAgICAgICAgICAgICAgaGFzX3NlY29uZGFyeV91c2VfaG90ZWwgaGFzX3NlY29uZGFyeV91c2VfcmVudGFsXG5tZWRpdW0gZGFtYWdlICAgICAgICAgICAgICAgICAgMC4wNjMxMDA5MiAgICAgICAgICAgICAwLjAwMDY3ODE1NjRcbmFsbW9zdCBkZXN0cnVjdGVkICAgICAgICAgICAgICAwLjgxODc4MDUzICAgICAgICAgICAgIDAuMDY2OTU2NDc2MlxuICAgICAgICAgICAgICAgICAgaGFzX3NlY29uZGFyeV91c2Vfc2Nob29sIGhhc19zZWNvbmRhcnlfdXNlX2luZHVzdHJ5XG5tZWRpdW0gZGFtYWdlICAgICAgICAgICAgICAgICAgICAgICAgICAgIDAgICAgICAgICAgICAgICAgICAwLjkwNTg2MTBcbmFsbW9zdCBkZXN0cnVjdGVkICAgICAgICAgICAgICAgICAgICAgICAgMCAgICAgICAgICAgICAgICAgIDAuNDYyMDc4OVxuICAgICAgICAgICAgICAgICAgaGFzX3NlY29uZGFyeV91c2VfZ292X29mZmljZVxubWVkaXVtIGRhbWFnZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE5hTlxuYWxtb3N0IGRlc3RydWN0ZWQgICAgICAgICAgICAgICAgICAgICAgICAgIE5hTlxuIn0= -->
+<pre><code>                   (Intercept) geo_level_1_id count_floors_pre_eq        age
+medium damage     8.649062e-03   4.577398e-10        0.1405732562 0.07938902
+almost destructed 1.948928e-10   6.696710e-02        0.0002685905 0.13745134
+                  area_percentage height_percentage foundation_typei foundation_typer
+medium damage           0.3496349         0.2057425        0.4720371       0.05867776
+almost destructed       0.7226673         0.3062347        0.3553855       0.10862484
+                  foundation_typeu foundation_typew   roof_typeq roof_typex
+medium damage           0.04345532       0.33021204 6.724986e-03  0.2168686
+almost destructed       0.33190822       0.03189147 1.388688e-06  0.0310060
+                  ground_floor_typem ground_floor_typev ground_floor_typex
+medium damage              0.2331919       1.434980e-01          0.9988191
+almost destructed          0.7825874       2.238632e-06          0.8860901
+                  ground_floor_typez other_floor_typeq other_floor_types
+medium damage              0.7996401       0.002800905       0.005476757
+almost destructed          0.4851607       0.641646981       0.014006880
+                  other_floor_typex positiono positions   positiont
+medium damage            0.06224622 0.8810632 0.1302970 0.327530537
+almost destructed        0.68796159 0.8554294 0.4651736 0.002201971
+                  plan_configurationc plan_configurationd plan_configurationf
+medium damage              0.03921285        1.384365e-03                   0
+almost destructed          0.00000000        7.864327e-10                   0
+                  plan_configurationm plan_configurationn plan_configurationo
+medium damage               0.6583978                   0           0.4142918
+almost destructed           0.0000000                   0           0.1424293
+                  plan_configurationq plan_configurations plan_configurationu
+medium damage            3.881796e-03         0.045444534           0.2551985
+almost destructed        4.199523e-10         0.004572644           0.1254244
+                  has_superstructure_adobe_mud has_superstructure_mud_mortar_stone
+medium damage                     1.889195e-05                        5.351275e-14
+almost destructed                 1.854579e-05                        5.551115e-15
+                  has_superstructure_stone_flag has_superstructure_cement_mortar_stone
+medium damage                       2.24297e-03                             0.41555841
+almost destructed                   5.44452e-06                             0.04432849
+                  has_superstructure_mud_mortar_brick
+medium damage                            0.0000157563
+almost destructed                        0.0030236047
+                  has_superstructure_cement_mortar_brick has_superstructure_timber
+medium damage                               5.605388e-01              0.0819342704
+almost destructed                           1.037987e-07              0.0001192877
+                  has_superstructure_bamboo has_superstructure_rc_non_engineered
+medium damage                    0.37903008                          0.094393618
+almost destructed                0.03316229                          0.006766134
+                  has_superstructure_rc_engineered has_superstructure_other
+medium damage                          0.008993038                0.8986641
+almost destructed                      0.118494916                0.9228185
+                  count_families has_secondary_use has_secondary_use_agriculture
+medium damage       7.604958e-07        0.04494543                     0.8985309
+almost destructed   2.557502e-07        0.76417528                     0.1421835
+                  has_secondary_use_hotel has_secondary_use_rental
+medium damage                  0.06310092             0.0006781564
+almost destructed              0.81878053             0.0669564762
+                  has_secondary_use_school has_secondary_use_industry
+medium damage                            0                  0.9058610
+almost destructed                        0                  0.4620789
+                  has_secondary_use_gov_office
+medium damage                              NaN
+almost destructed                          NaN</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYWNjdXJhY3k0XG5gYGAifQ== -->
+<pre class="r"><code>accuracy4</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuNTkxM1xuIn0= -->
+<pre><code>[1] 0.5913</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="ova-and-ava-methods" class="section level1">
+<h1>OVA and AVA methods</h1>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyZWd0b29scylcbmBgYCJ9 -->
+<pre class="r"><code>library(regtools)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBGTk5cbkxvYWRpbmcgcmVxdWlyZWQgcGFja2FnZTogbXZ0bm9ybVxuTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBkdW1taWVzXG5kdW1taWVzLTEuNS42IHByb3ZpZGVkIGJ5IERlY2lzaW9uIFBhdHRlcm5zXG5cbkxvYWRpbmcgcmVxdWlyZWQgcGFja2FnZTogc2FuZHdpY2hcblxuXG5cblxuXG4qKioqKioqKioqKioqKioqKioqKipcblxuXG5cbkxhdGVzdCB2ZXJzaW9uIG9mIHJlZ3Rvb2xzIGF0IEdpdEh1Yi5jb20vbWF0bG9mZlxuXG5cblR5cGUgXCI/cmVndG9vbHNcIiBmb3IgZnVuY3Rpb24gbGlzdC5cbiJ9 -->
+<pre><code>Loading required package: FNN
+Loading required package: mvtnorm
+Loading required package: dummies
+dummies-1.5.6 provided by Decision Patterns
+
+Loading required package: sandwich
+
+
+
+
+
+*********************
+
+
+
+Latest version of regtools at GitHub.com/matloff
+
+
+Type &quot;?regtools&quot; for function list.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>In order for the data to work with the regtools library, we must convert all columns to numeric or int variables. So, we factor the target variable and then parse it as numeric.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBJbiBvcmRlciBmb3IgdGhlIGRhdGEgdG8gd29yayB3aXRoIHRoZSByZWd0b29scyBsaWJyYXJ5LCB3ZSBtdXN0IGNvbnZlcnQgYWxsIGNvbHVtbnNcbiMgdG8gbnVtZXJpYyBvciBpbnQgdmFyaWFibGVzLiBTbywgd2UgZmFjdG9yIHRoZSB0YXJnZXQgdmFyaWFibGUgYW5kIHRoZW4gcGFyc2UgaXQgYXMgbnVtZXJpYy5cbmZ1bGxfZGF0YSA9IHRyYWluX3ZhbHVlc1xuZnVsbF9kYXRhJGRhbWFnZV9ncmFkZSA9IHRyYWluX2xhYmVscyRkYW1hZ2VfZ3JhZGVcbmZ1bGxfZGF0YSRkYW1hZ2VfZ3JhZGUgPSBmYWN0b3IoZnVsbF9kYXRhJGRhbWFnZV9ncmFkZSwgbGV2ZWxzID0gYygxLCAyLCAzKSwgbGFiZWxzPWMoXCJsb3cgZGFtYWdlXCIsIFwibWVkaXVtIGRhbWFnZVwiLCBcImFsbW9zdCBkZXN0cnVjdGVkXCIpKVxuZnVsbF9kYXRhJGRhbWFnZV9ncmFkZSA9IGFzLm51bWVyaWMoZnVsbF9kYXRhJGRhbWFnZV9ncmFkZSkgLSAxIFxuYGBgIn0= -->
+<pre class="r"><code># In order for the data to work with the regtools library, we must convert all columns
+# to numeric or int variables. So, we factor the target variable and then parse it as numeric.
+full_data = train_values
+full_data$damage_grade = train_labels$damage_grade
+full_data$damage_grade = factor(full_data$damage_grade, levels = c(1, 2, 3), labels=c(&quot;low damage&quot;, &quot;medium damage&quot;, &quot;almost destructed&quot;))
+full_data$damage_grade = as.numeric(full_data$damage_grade) - 1 </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>We do the same with all non-numeric variables</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZnVsbF9kYXRhW3NhcHBseShmdWxsX2RhdGEsIGlzLmNoYXJhY3RlcildID0gbGFwcGx5KGZ1bGxfZGF0YVtzYXBwbHkoZnVsbF9kYXRhLCBpcy5jaGFyYWN0ZXIpXSwgYXMuZmFjdG9yKVxuZnVsbF9kYXRhW3NhcHBseShmdWxsX2RhdGEsIGlzLmZhY3RvcildID0gbGFwcGx5KGZ1bGxfZGF0YVtzYXBwbHkoZnVsbF9kYXRhLCBpcy5mYWN0b3IpXSwgZnVuY3Rpb24oeCkge2FzLm51bWVyaWMoeCktMX0pXG5cbmBgYCJ9 -->
+<pre class="r"><code>full_data[sapply(full_data, is.character)] = lapply(full_data[sapply(full_data, is.character)], as.factor)
+full_data[sapply(full_data, is.factor)] = lapply(full_data[sapply(full_data, is.factor)], function(x) {as.numeric(x)-1})
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Let’s start with the classifiers.</p>
+<div id="one-vs-all" class="section level2">
+<h2>One Vs All</h2>
+<p>For it to work, we must set the target column as the last one in the dataframe, so we can just make a subset of the dataset in the order we need. Since the target was already the last one, its index is 40, but when making that selection it is necessary.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxub3ZhdHJuID0gb3ZhbG9ndHJuKDMsIGZ1bGxfZGF0YVsgLGMoMiw1OjM5LCA0MCldKVxuYGBgIn0= -->
+<pre class="r"><code>ovatrn = ovalogtrn(3, full_data[ ,c(2,5:39, 40)])</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Finally, to predict, we get rid of the target column and use the predict helper function.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxub3ZheXByZWQgPC0gb3ZhbG9ncHJlZChvdmF0cm4sIGZ1bGxfZGF0YVssYygyLDU6MzkpXSlcbmBgYCJ9 -->
+<pre class="r"><code>ovaypred &lt;- ovalogpred(ovatrn, full_data[,c(2,5:39)])</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>The mean function over a boolean vector gives us the proportion of true/all values in the vector. Essentially: the accuracy.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVhbihvdmF5cHJlZCA9PSBmdWxsX2RhdGEkZGFtYWdlX2dyYWRlKVxuYGBgIn0= -->
+<pre class="r"><code>mean(ovaypred == full_data$damage_grade)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuNTgxODMyXG4ifQ== -->
+<pre><code>[1] 0.581832</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="quadratic-data" class="section level3">
+<h3>Quadratic data</h3>
+<p>Let us try with quadratic data, which may exaggerate some of the features in the variables and, possibly, make it a bit easier for the algorithm.</p>
+<p>Take all the columns we are interested in and square them. Save that subset.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucXVhZHJhdGljX2RhdGEgPSBmdWxsX2RhdGFbLGMoMiw1OjM5KV1eMlxuYGBgIn0= -->
+<pre class="r"><code>quadratic_data = full_data[,c(2,5:39)]^2</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Now the subset lacks the target variable, so we append it before it is passed to the function via cbind (column bind).</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucW92YWRhdGEgPSBvdmFsb2d0cm4oMywgY2JpbmQocXVhZHJhdGljX2RhdGEsIGZ1bGxfZGF0YSRkYW1hZ2VfZ3JhZGUpKVxuYGBgIn0= -->
+<pre class="r"><code>qovadata = ovalogtrn(3, cbind(quadratic_data, full_data$damage_grade))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>We predict as usual and get our boolean vector.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucW92YXlwcmVkIDwtIG92YWxvZ3ByZWQocW92YWRhdGEsIHF1YWRyYXRpY19kYXRhKVxuYGBgIn0= -->
+<pre class="r"><code>qovaypred &lt;- ovalogpred(qovadata, quadratic_data)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVhbihxb3ZheXByZWQgPT0gZnVsbF9kYXRhJGRhbWFnZV9ncmFkZSlcbmBgYCJ9 -->
+<pre class="r"><code>mean(qovaypred == full_data$damage_grade)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuNTc5Mzk5MlxuIn0= -->
+<pre><code>[1] 0.5793992</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+</div>
+<div id="all-vs-all" class="section level2">
+<h2>All vs All</h2>
+<p>For it to work, we must pass in a matrix, not a dataframe. Let us convert the data into matrix form, again, with the subset we are interested in, and the target value last.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YV9tYXRyaXggPSBkYXRhLm1hdHJpeChmdWxsX2RhdGFbICxjKDIsNTozOSwgNDApXSlcbmBgYCJ9 -->
+<pre class="r"><code>data_matrix = data.matrix(full_data[ ,c(2,5:39, 40)])</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Call ava train function and classify.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYXZhdHJuID0gYXZhbG9ndHJuKDMsIGRhdGFfbWF0cml4KVxuYGBgIn0= -->
+<pre class="r"><code>avatrn = avalogtrn(3, data_matrix)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Predict as usual, but keeping the target variable out. No need for matrix form in this function.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYXZheXByZWQgPC0gYXZhbG9ncHJlZCgzLCBhdmF0cm4sIGZ1bGxfZGF0YVssYygyLDU6MzkpXSlcbmBgYCJ9 -->
+<pre class="r"><code>avaypred &lt;- avalogpred(3, avatrn, full_data[,c(2,5:39)])</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVhbihhdmF5cHJlZCA9PSBmdWxsX2RhdGEkZGFtYWdlX2dyYWRlKVxuYGBgIn0= -->
+<pre class="r"><code>mean(avaypred == full_data$damage_grade)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuNTgyMjY1NlxuIn0= -->
+<pre><code>[1] 0.5822656</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="quadratic-data-1" class="section level3">
+<h3>Quadratic Data</h3>
+<p>Let us try again with quadratic data. The quadratic version was defined before, so we can just use it.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YV9tYXRyaXggPSBkYXRhLm1hdHJpeChjYmluZChxdWFkcmF0aWNfZGF0YSwgZnVsbF9kYXRhJGRhbWFnZV9ncmFkZSkpXG5gYGAifQ== -->
+<pre class="r"><code>data_matrix = data.matrix(cbind(quadratic_data, full_data$damage_grade))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVhbihhdmF5cHJlZCA9PSBmdWxsX2RhdGEkZGFtYWdlX2dyYWRlKVxuXG5gYGAifQ== -->
+<pre class="r"><code>mean(avaypred == full_data$damage_grade)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuNTc1MDE3XG4ifQ== -->
+<pre><code>[1] 0.575017</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>It seems like the quadratic strategy did not help much. This method did not help much either, since the results against multinom are almost exactly the same.</p>
+<!-- rnb-text-end -->
+</div>
+</div>
+</div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAnTG9naXN0aWMgUmVncmVzc2lvbjogTXVsdGlub20nCm91dHB1dDoKICBodG1sX25vdGVib29rOiBkZWZhdWx0CiAgcGRmX2RvY3VtZW50OiBkZWZhdWx0Ci0tLQoKSW1wb3J0IGxpYnJhcmllcyBhcyB1c3VhbC4uLgpgYGB7cn0KbGlicmFyeShubmV0KQpgYGAKClJlYWRpbmcgdGhlIGRhdGEuLi4KYGBge3J9CnRyYWluX3ZhbHVlcyA8LSByZWFkLmNzdigKICAiLi4vZGF0YS9SaWNodGVyc19QcmVkaWN0b3JfTW9kZWxpbmdfRWFydGhxdWFrZV9EYW1hZ2VfLV9UcmFpbl9WYWx1ZXMuY3N2IgopCnRyYWluX2xhYmVscyA8LSByZWFkLmNzdigKICAiLi4vZGF0YS9SaWNodGVyc19QcmVkaWN0b3JfTW9kZWxpbmdfRWFydGhxdWFrZV9EYW1hZ2VfLV9UcmFpbl9MYWJlbHMuY3N2IgopCmBgYAoKCldlIGFwcGVuZCB0aGUgdGFyZ2V0IHZhcmlhYmxlIHRvIHRoZSBmdWxsIGRhdGFzZXQsIGZhY3RvciBpdCBhbmQgcmVsZXZlbCBpdCwgYSAKbmVjY2VzYXJ5IHN0ZXAgZm9yIHRoZSBtdWx0aW5vbSBhbGdvcml0aG0uIFJlbGV2ZWwgc2ltcGx5IG1ha2VzIG9uZSBvZiB0aGUgcG9zc2libGUKY2F0ZWdvcmllcyB0aGUgInJlZmVyZW5jZSIuCmBgYHtyfQpmdWxsX2RhdGEgPSB0cmFpbl92YWx1ZXMKZnVsbF9kYXRhJGRhbWFnZV9ncmFkZSA9IHRyYWluX2xhYmVscyRkYW1hZ2VfZ3JhZGUKZnVsbF9kYXRhJGRhbWFnZV9ncmFkZSA9IGZhY3RvcihmdWxsX2RhdGEkZGFtYWdlX2dyYWRlLCBsZXZlbHMgPSBjKDEsIDIsIDMpLCBsYWJlbHM9YygibG93IGRhbWFnZSIsICJtZWRpdW0gZGFtYWdlIiwgImFsbW9zdCBkZXN0cnVjdGVkIikpCmZ1bGxfZGF0YSRkYW1hZ2VfZ3JhZGUgPSByZWxldmVsKGZ1bGxfZGF0YSRkYW1hZ2VfZ3JhZGUsIHJlZj0xKQpgYGAKCkxldCB1cyBjcmVhdGUgYSBmdW5jdGlvbiB0aGF0IHJ1bnMgdGhlIG11bHRpbm9tIGFsZ29yaXRobSwgYW5kIGFmdGVyd2FyZHMgY2FsY3VsYXRlcwp0aGUgYWNjdXJhY3kgb2YgdGhlIGdpdmVuIG1vZGVsLiBXaWxsIHRha2Ugbiwgd2hpY2ggaXMgdGhlIG51bWJlciBvZiByb3dzIHdlIHdpbGwKdXNlIChzZXQgdXAgYXQgbG93ZXIgdmFsdWVzIHdoZW4gZXhwbG9yaW5nIHNvIHRoZSBhbGdvcml0aG0gZG9lcyBub3QgdGFrZSBsb3RzIG9mIHRpbWUpCmFuZCBmb3JtdWxhLCBpbiB3aGljaCB3ZSBzcGVjaWZ5IHdoYXQgdmFyaWFibGVzIHdlIHdhbnQgdG8ga2VlcCBvciBkaXNjYXJkLgpgYGB7cn0KcHJlZGljdGlvbiA9IGZ1bmN0aW9uKG4sIGZvcm11bGEpewogICNidWlsZCBtb2RlbAogIG1vZGVsID0gbXVsdGlub20oZm9ybXVsYSwgZnVsbF9kYXRhWzE6bixdKQogIAogICNlcnJvciBjYWxjdWxhdGlvbgogIGNvbmZNYXQgPSB0YWJsZShwcmVkaWN0KG1vZGVsKSwgZnVsbF9kYXRhWzE6bixdJGRhbWFnZV9ncmFkZSkKICAKICAKICBhY2N1cmFjeSA9IHN1bShkaWFnKGNvbmZNYXQpKS9zdW0oY29uZk1hdCkKICAKICB6ID0gc3VtbWFyeShtb2RlbCkkY29lZmZpY2llbnRzL3N1bW1hcnkobW9kZWwpJHN0YW5kYXJkLmVycm9ycwogIHAgPC0gKDEgLSBwbm9ybShhYnMoeiksIDAsIDEpKSAqIDIKICBwcmludChwKQogIAogIHJldHVybihhY2N1cmFjeSkKfQpgYGAKClRoaXMgd2lsbCBtYWtlIGZvcm11bGEgZXhwbG9yaW5nIG11Y2ggZWFzaWVyLCBzaW5jZSB3ZSBjYW4gbm93IGp1c3QgZGVmaW5lIG4gYW5kCmZvcm11bGEsIGNhbGwgdGhlIGZ1bmN0aW9uIGFuZCBrZWVwIHRyYWNrIG9mIHRoZSBkaWZmZXJlbmNlcyBpbiB0aGUgbW9kZWwncyBhY2N1cmFjeS4KCkF0dGFjaGluZyB0aGUgZGF0YSBzbyB3ZSBjYW4gaGF2ZSBhY2Nlc3MgdG8gdGhlIHZhcmlhYmxlcy4KYGBge3J9CmF0dGFjaChmdWxsX2RhdGEpCmBgYAoKV2UnbGwgc3RhcnQgd2l0aCAxMCAwMDAgcm93cyBhbmQgYWxsIHZhcmlhYmxlcy4KYGBge3J9Cm4gPSAxMDAwMCAjMjYwNjAxCmZvcm11bGEgPSBkYW1hZ2VfZ3JhZGUgfiAuIAphY2N1cmFjeTEgPSBwcmVkaWN0aW9uKG4sIGZvcm11bGEpCmBgYApgYGB7cn0KYWNjdXJhY3kxCmBgYApXZSBnb3QgYWxtb3N0IDAuNiwgd2hpY2ggaXMgbm90IHZlcnkgYmFkLCBidXQgY291bGQgYmUgYSBsb3QgYmV0dGVyLgoKCkxldCdzIHJlbW92ZSB0aGUgZ2VvIGxldmVscyAyIGFuZCAzLCBzaW5jZSB0aGV5IGFyZSB0b28gZ3JhbnVsYXIgdG8gZ2l2ZSBhbnkKaW5mb3JtYXRpb24sIGFuZCBhbHNvIHRoZSBidWlsZGluZyBpZCwgd2hpY2ggcHJvdmlkZXMgYWJzb2x1dGVseSBubyBpbmZvcm1hdGlvbi4KYGBge3J9CmZvcm11bGEgPSBkYW1hZ2VfZ3JhZGUgfiAuIC1idWlsZGluZ19pZCAtIGdlb19sZXZlbF8yX2lkIC0gZ2VvX2xldmVsXzNfaWQKYWNjdXJhY3kyID0gcHJlZGljdGlvbihuLCBmb3JtdWxhKQpgYGAKCgpgYGB7cn0KYWNjdXJhY3kyCmBgYAoKVGhpcyBwcm92aWRlZCBhbG1vc3Qgbm8gZGlmZmVyZW5jZSwgc28gaXQgd2FzIG5vdCBhIGJhZCBkZWNpc2lvbiBzaW5jZSB3ZSBoYXZlCmxlc3MgaW5mb3JtYXRpb24gdG8gcHJvY2VzcyBidXQgdGhlIHNhbWUgcmVzdWx0LiBUaGF0IHRlbGxzIHVzIHRoYXQgdGhvc2UgdmFyaWFibGVzCndlcmUgbm90IGV4cGxhaW5pbmcgYW55dGhpbmcuCgpMZXQncyBrZWVwIHN1YnRyYWN0aW5nIHZhcmlhYmxlcyBhbmQgc2VlIHdoYXQgaGFwcGVucy4KCkJhc2VkIG9uIHRoZSBwIHZhbHVlcyBvYnRhaW5lZCBpbiB0aGUgbW9kZWwsIGxhbmRfc3VyZmFjZV9jb25kaXRpb24gaGFkIGEgdmVyeQpoaWdoIHNjb3JlLiBUaGF0IG1lYW5zIHRoYXQgdGhlIGNvbmZpZGVuY2UgdGhhdCB0aG9zZSB2YXJpYWJsZXMgYXJlIHJlbGF0ZWQgd2l0aApvdXIgdGFyZ2V0IGlzIDEgLSBwLCBzbyBpdCBtdXN0IGJlIHJlYWxseSBzbWFsbC4gUmVtb3ZpbmcgdGhhdCB2YXJpYWJsZSB3b3VsZCAKcmVzdWx0IGluIGEsIGhvcGVmdWxseSBiZXR0ZXIgYWNjdXJhY3ksIGJ1dCwgYXQgbGVhc3QsIG5vIGNoYW5nZSBpbiBpdC4gV2UnbGwgZG8KdGhhdCBmcm9tIG5vdyBvbiwgc2VhcmNoIGZvciBoaWdoIHAtdmFsdWUgdmFyaWFibGVzIGFuZCByZW1vdmUgdGhlbSB0byBzZWUgaWYKd2UgY2FuIGltcHJvdmUgdGhlIG1vZGVsJ3MgYWNjdXJhY3kuCgoKYGBge3J9CmxhbmRfc3VyZmFjZV9jb25kaXRpb24KYGBgCgoKCgoKCgoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAnTG9naXN0aWMgUmVncmVzc2lvbjogTXVsdGlub20gYW5kIE9WQS9BVkEnCm91dHB1dDoKICBodG1sX25vdGVib29rOiBkZWZhdWx0CiAgcGRmX2RvY3VtZW50OiBkZWZhdWx0Ci0tLQoKSW1wb3J0IGxpYnJhcmllcyBhcyB1c3VhbC4uLgpgYGB7cn0KbGlicmFyeShubmV0KQpgYGAKClJlYWRpbmcgdGhlIGRhdGEuLi4KYGBge3J9CnRyYWluX3ZhbHVlcyA8LSByZWFkLmNzdigKICAiLi4vZGF0YS9SaWNodGVyc19QcmVkaWN0b3JfTW9kZWxpbmdfRWFydGhxdWFrZV9EYW1hZ2VfLV9UcmFpbl9WYWx1ZXMuY3N2IgopCnRyYWluX2xhYmVscyA8LSByZWFkLmNzdigKICAiLi4vZGF0YS9SaWNodGVyc19QcmVkaWN0b3JfTW9kZWxpbmdfRWFydGhxdWFrZV9EYW1hZ2VfLV9UcmFpbl9MYWJlbHMuY3N2IgopCmBgYAoKIyBNdWx0aW5vbSBmcm9tIE5OZXQKCldlIGFwcGVuZCB0aGUgdGFyZ2V0IHZhcmlhYmxlIHRvIHRoZSBmdWxsIGRhdGFzZXQsIGZhY3RvciBpdCBhbmQgcmVsZXZlbCBpdCwgYSAKbmVjY2VzYXJ5IHN0ZXAgZm9yIHRoZSBtdWx0aW5vbSBhbGdvcml0aG0uIFJlbGV2ZWwgc2ltcGx5IG1ha2VzIG9uZSBvZiB0aGUgcG9zc2libGUKY2F0ZWdvcmllcyB0aGUgInJlZmVyZW5jZSIuCmBgYHtyfQpmdWxsX2RhdGEgPSB0cmFpbl92YWx1ZXMKZnVsbF9kYXRhJGRhbWFnZV9ncmFkZSA9IHRyYWluX2xhYmVscyRkYW1hZ2VfZ3JhZGUKZnVsbF9kYXRhJGRhbWFnZV9ncmFkZSA9IGZhY3RvcihmdWxsX2RhdGEkZGFtYWdlX2dyYWRlLCBsZXZlbHMgPSBjKDEsIDIsIDMpLCBsYWJlbHM9YygibG93IGRhbWFnZSIsICJtZWRpdW0gZGFtYWdlIiwgImFsbW9zdCBkZXN0cnVjdGVkIikpCmZ1bGxfZGF0YSRkYW1hZ2VfZ3JhZGUgPSByZWxldmVsKGZ1bGxfZGF0YSRkYW1hZ2VfZ3JhZGUsIHJlZj0xKQpgYGAKCkxldCB1cyBjcmVhdGUgYSBmdW5jdGlvbiB0aGF0IHJ1bnMgdGhlIG11bHRpbm9tIGFsZ29yaXRobSwgYW5kIGFmdGVyd2FyZHMgY2FsY3VsYXRlcwp0aGUgYWNjdXJhY3kgb2YgdGhlIGdpdmVuIG1vZGVsLiBXaWxsIHRha2Ugbiwgd2hpY2ggaXMgdGhlIG51bWJlciBvZiByb3dzIHdlIHdpbGwKdXNlIChzZXQgdXAgYXQgbG93ZXIgdmFsdWVzIHdoZW4gZXhwbG9yaW5nIHNvIHRoZSBhbGdvcml0aG0gZG9lcyBub3QgdGFrZSBsb3RzIG9mIHRpbWUpCmFuZCBmb3JtdWxhLCBpbiB3aGljaCB3ZSBzcGVjaWZ5IHdoYXQgdmFyaWFibGVzIHdlIHdhbnQgdG8ga2VlcCBvciBkaXNjYXJkLgpgYGB7cn0KcHJlZGljdGlvbiA9IGZ1bmN0aW9uKG4sIGZvcm11bGEpewogICNidWlsZCBtb2RlbAogIG1vZGVsID0gbXVsdGlub20oZm9ybXVsYSwgZnVsbF9kYXRhWzE6bixdKQogIAogICNlcnJvciBjYWxjdWxhdGlvbgogIGNvbmZNYXQgPSB0YWJsZShwcmVkaWN0KG1vZGVsKSwgZnVsbF9kYXRhWzE6bixdJGRhbWFnZV9ncmFkZSkKICAKICAKICBhY2N1cmFjeSA9IHN1bShkaWFnKGNvbmZNYXQpKS9zdW0oY29uZk1hdCkKICAKICB6ID0gc3VtbWFyeShtb2RlbCkkY29lZmZpY2llbnRzL3N1bW1hcnkobW9kZWwpJHN0YW5kYXJkLmVycm9ycwogIHAgPC0gKDEgLSBwbm9ybShhYnMoeiksIDAsIDEpKSAqIDIKICBwcmludChwKQogIAogIHJldHVybihhY2N1cmFjeSkKfQpgYGAKClRoaXMgd2lsbCBtYWtlIGZvcm11bGEgZXhwbG9yaW5nIG11Y2ggZWFzaWVyLCBzaW5jZSB3ZSBjYW4gbm93IGp1c3QgZGVmaW5lIG4gYW5kCmZvcm11bGEsIGNhbGwgdGhlIGZ1bmN0aW9uIGFuZCBrZWVwIHRyYWNrIG9mIHRoZSBkaWZmZXJlbmNlcyBpbiB0aGUgbW9kZWwncyBhY2N1cmFjeS4KCkF0dGFjaGluZyB0aGUgZGF0YSBzbyB3ZSBjYW4gaGF2ZSBhY2Nlc3MgdG8gdGhlIHZhcmlhYmxlcy4KYGBge3J9CmF0dGFjaChmdWxsX2RhdGEpCmBgYAoKV2UnbGwgc3RhcnQgd2l0aCAxMCAwMDAgcm93cyBhbmQgYWxsIHZhcmlhYmxlcy4KYGBge3J9Cm4gPSAxMDAwMCAjMjYwNjAxCmZvcm11bGEgPSBkYW1hZ2VfZ3JhZGUgfiAuIAphY2N1cmFjeTEgPSBwcmVkaWN0aW9uKG4sIGZvcm11bGEpCmBgYApgYGB7cn0KYWNjdXJhY3kxCmBgYApXZSBnb3QgYWxtb3N0IDAuNiwgd2hpY2ggaXMgbm90IHZlcnkgYmFkLCBidXQgY291bGQgYmUgYSBsb3QgYmV0dGVyLgoKCkxldCdzIHJlbW92ZSB0aGUgZ2VvIGxldmVscyAyIGFuZCAzLCBzaW5jZSB0aGV5IGFyZSB0b28gZ3JhbnVsYXIgdG8gZ2l2ZSBhbnkKaW5mb3JtYXRpb24sIGFuZCBhbHNvIHRoZSBidWlsZGluZyBpZCwgd2hpY2ggcHJvdmlkZXMgYWJzb2x1dGVseSBubyBpbmZvcm1hdGlvbi4KYGBge3J9CmZvcm11bGEgPSBkYW1hZ2VfZ3JhZGUgfiAuIC1idWlsZGluZ19pZCAtIGdlb19sZXZlbF8yX2lkIC0gZ2VvX2xldmVsXzNfaWQKYWNjdXJhY3kyID0gcHJlZGljdGlvbihuLCBmb3JtdWxhKQpgYGAKCgpgYGB7cn0KYWNjdXJhY3kyCmBgYAoKVGhpcyBwcm92aWRlZCBhbG1vc3Qgbm8gZGlmZmVyZW5jZSwgc28gaXQgd2FzIG5vdCBhIGJhZCBkZWNpc2lvbiBzaW5jZSB3ZSBoYXZlCmxlc3MgaW5mb3JtYXRpb24gdG8gcHJvY2VzcyBidXQgdGhlIHNhbWUgcmVzdWx0LiBUaGF0IHRlbGxzIHVzIHRoYXQgdGhvc2UgdmFyaWFibGVzCndlcmUgZXhwbGFpbmluZyBub3RoaW5nLgoKTGV0J3Mga2VlcCBzdWJ0cmFjdGluZyB2YXJpYWJsZXMgYW5kIHNlZSB3aGF0IGhhcHBlbnMuCgpCYXNlZCBvbiB0aGUgcCB2YWx1ZXMgb2J0YWluZWQgaW4gdGhlIG1vZGVsLCBsYW5kX3N1cmZhY2VfY29uZGl0aW9uIGhhZCBhIHZlcnkKaGlnaCBzY29yZS4gVGhhdCBtZWFucyB0aGF0IHRoZSBjb25maWRlbmNlIHRoYXQgdGhvc2UgdmFyaWFibGVzIGFyZSByZWxhdGVkIHdpdGgKb3VyIHRhcmdldCBpcyAxIC0gcCwgc28gaXQgbXVzdCBiZSByZWFsbHkgc21hbGwuIFJlbW92aW5nIHRoYXQgdmFyaWFibGUgd291bGQgCnJlc3VsdCBpbiBhLCBob3BlZnVsbHkgYmV0dGVyIGFjY3VyYWN5LCBidXQsIGF0IGxlYXN0LCBubyBjaGFuZ2UgaW4gaXQuIFdlJ2xsIGRvCnRoYXQgZnJvbSBub3cgb24sIHNlYXJjaCBmb3IgaGlnaCBwLXZhbHVlIHZhcmlhYmxlcyBhbmQgcmVtb3ZlIHRoZW0gdG8gc2VlIGlmCndlIGNhbiBpbXByb3ZlIHRoZSBtb2RlbCdzIGFjY3VyYWN5LgoKCmBgYHtyfQpmb3JtdWxhID0gZGFtYWdlX2dyYWRlIH4gLiAtYnVpbGRpbmdfaWQgLSAKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGdlb19sZXZlbF8yX2lkIC0gCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBnZW9fbGV2ZWxfM19pZCAtIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgbGFuZF9zdXJmYWNlX2NvbmRpdGlvbgogIAphY2N1cmFjeTMgPSBwcmVkaWN0aW9uKG4sIGZvcm11bGEpCmBgYApgYGB7cn0KYWNjdXJhY3kzCmBgYAoKRm9yIHRoZSBzYWtlIG9mIGNvbW1vbiBzZW5zZSwgcG9saXRpY2FsIHZhcmlhYmxlcyBsaWtlIGxlZ2FsX293bmVyc2hpcF9zdGF0dXMgbwp0aGUgaGFzX3NlY29uZGFyeV91c2VfKiBmYW1pbHkgd291bGQgcHJvYmFibHkgbm90IGFkZCBtdWNoIHRvIHRoZSBjb25jZXB0IG9mIGEgCmJ1aWxkaW5nIGJlaW5nIGFibGUgdG8gZGVhbCB3aXRoIGFuIGVhcnRocXVha2UsIHNvIGxldHMgcmVtb3ZlIHRoZW0uIFNvbWUgb2YgdGhlc2UgdmFyaWFibGVzIGFyZSBhbHNvIGNhdGVnb3JpY2FsLCBzbyB3ZSBhcmUgcmVtb3ZpbmcgbXVjaCBtb3JlIHRoYW4gaXQgc2VlbXMsIApzaW5jZSB0aGUgbW9kZWwgdHJpZXMgd2l0aCBldmVyeSBwb3NzaWJsZSBjb21iaW5hdGlvbi4KYGBge3J9CmZvcm11bGEgPSBkYW1hZ2VfZ3JhZGUgfiAuIC1idWlsZGluZ19pZCAtIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgZ2VvX2xldmVsXzJfaWQgLSAKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGdlb19sZXZlbF8zX2lkIC0gCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBsYW5kX3N1cmZhY2VfY29uZGl0aW9uIC0KICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxlZ2FsX293bmVyc2hpcF9zdGF0dXMgLQogICAgICAgICAgICAgICAgICAgICAgICAgICAgaGFzX3NlY29uZGFyeV91c2VfaW5zdGl0dXRpb24gLQogICAgICAgICAgICAgICAgICAgICAgICAgICAgaGFzX3NlY29uZGFyeV91c2VfaGVhbHRoX3Bvc3QgLQogICAgICAgICAgICAgICAgICAgICAgICAgICAgaGFzX3NlY29uZGFyeV91c2VfdXNlX3BvbGljZSAtCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBoYXNfc2Vjb25kYXJ5X3VzZV9vdGhlcgogIAphY2N1cmFjeTQgPSBwcmVkaWN0aW9uKG4sIGZvcm11bGEpCmBgYAoKCmBgYHtyfQphY2N1cmFjeTQKYGBgCgojIE9WQSBhbmQgQVZBIG1ldGhvZHMKYGBge3J9CmxpYnJhcnkocmVndG9vbHMpCmBgYAoKSW4gb3JkZXIgZm9yIHRoZSBkYXRhIHRvIHdvcmsgd2l0aCB0aGUgcmVndG9vbHMgbGlicmFyeSwgd2UgbXVzdCBjb252ZXJ0IGFsbCBjb2x1bW5zCnRvIG51bWVyaWMgb3IgaW50IHZhcmlhYmxlcy4gU28sIHdlIGZhY3RvciB0aGUgdGFyZ2V0IHZhcmlhYmxlIGFuZCB0aGVuIHBhcnNlIGl0IGFzIG51bWVyaWMuCmBgYHtyfQojIEluIG9yZGVyIGZvciB0aGUgZGF0YSB0byB3b3JrIHdpdGggdGhlIHJlZ3Rvb2xzIGxpYnJhcnksIHdlIG11c3QgY29udmVydCBhbGwgY29sdW1ucwojIHRvIG51bWVyaWMgb3IgaW50IHZhcmlhYmxlcy4gU28sIHdlIGZhY3RvciB0aGUgdGFyZ2V0IHZhcmlhYmxlIGFuZCB0aGVuIHBhcnNlIGl0IGFzIG51bWVyaWMuCmZ1bGxfZGF0YSA9IHRyYWluX3ZhbHVlcwpmdWxsX2RhdGEkZGFtYWdlX2dyYWRlID0gdHJhaW5fbGFiZWxzJGRhbWFnZV9ncmFkZQpmdWxsX2RhdGEkZGFtYWdlX2dyYWRlID0gZmFjdG9yKGZ1bGxfZGF0YSRkYW1hZ2VfZ3JhZGUsIGxldmVscyA9IGMoMSwgMiwgMyksIGxhYmVscz1jKCJsb3cgZGFtYWdlIiwgIm1lZGl1bSBkYW1hZ2UiLCAiYWxtb3N0IGRlc3RydWN0ZWQiKSkKZnVsbF9kYXRhJGRhbWFnZV9ncmFkZSA9IGFzLm51bWVyaWMoZnVsbF9kYXRhJGRhbWFnZV9ncmFkZSkgLSAxIApgYGAKCgpXZSBkbyB0aGUgc2FtZSB3aXRoIGFsbCBub24tbnVtZXJpYyB2YXJpYWJsZXMKYGBge3J9CmZ1bGxfZGF0YVtzYXBwbHkoZnVsbF9kYXRhLCBpcy5jaGFyYWN0ZXIpXSA9IGxhcHBseShmdWxsX2RhdGFbc2FwcGx5KGZ1bGxfZGF0YSwgaXMuY2hhcmFjdGVyKV0sIGFzLmZhY3RvcikKZnVsbF9kYXRhW3NhcHBseShmdWxsX2RhdGEsIGlzLmZhY3RvcildID0gbGFwcGx5KGZ1bGxfZGF0YVtzYXBwbHkoZnVsbF9kYXRhLCBpcy5mYWN0b3IpXSwgZnVuY3Rpb24oeCkge2FzLm51bWVyaWMoeCktMX0pCgpgYGAKCgpMZXQncyBzdGFydCB3aXRoIHRoZSBjbGFzc2lmaWVycy4KCiMjIE9uZSBWcyBBbGwKRm9yIGl0IHRvIHdvcmssIHdlIG11c3Qgc2V0IHRoZSB0YXJnZXQgY29sdW1uIGFzIHRoZSBsYXN0IG9uZSBpbiB0aGUgZGF0YWZyYW1lLApzbyB3ZSBjYW4ganVzdCBtYWtlIGEgc3Vic2V0IG9mIHRoZSBkYXRhc2V0IGluIHRoZSBvcmRlciB3ZSBuZWVkLiBTaW5jZSB0aGUgdGFyZ2V0CndhcyBhbHJlYWR5IHRoZSBsYXN0IG9uZSwgaXRzIGluZGV4IGlzIDQwLCBidXQgd2hlbiBtYWtpbmcgdGhhdCBzZWxlY3Rpb24gaXQgaXMKbmVjZXNzYXJ5LgoKYGBge3J9Cm92YXRybiA9IG92YWxvZ3RybigzLCBmdWxsX2RhdGFbICxjKDIsNTozOSwgNDApXSkKYGBgCgoKRmluYWxseSwgdG8gcHJlZGljdCwgd2UgZ2V0IHJpZCBvZiB0aGUgdGFyZ2V0IGNvbHVtbiBhbmQgdXNlIHRoZSAKcHJlZGljdCBoZWxwZXIgZnVuY3Rpb24uCmBgYHtyfQpvdmF5cHJlZCA8LSBvdmFsb2dwcmVkKG92YXRybiwgZnVsbF9kYXRhWyxjKDIsNTozOSldKQpgYGAKClRoZSBtZWFuIGZ1bmN0aW9uIG92ZXIgYSBib29sZWFuIHZlY3RvciBnaXZlcyB1cyB0aGUgcHJvcG9ydGlvbiBvZiB0cnVlL2FsbAp2YWx1ZXMgaW4gdGhlIHZlY3Rvci4gRXNzZW50aWFsbHk6IHRoZSBhY2N1cmFjeS4KYGBge3J9Cm1lYW4ob3ZheXByZWQgPT0gZnVsbF9kYXRhJGRhbWFnZV9ncmFkZSkKYGBgCgojIyMgUXVhZHJhdGljIGRhdGEKTGV0IHVzIHRyeSB3aXRoIHF1YWRyYXRpYyBkYXRhLCB3aGljaCBtYXkgZXhhZ2dlcmF0ZSBzb21lIG9mIHRoZSBmZWF0dXJlcyBpbgp0aGUgdmFyaWFibGVzIGFuZCwgcG9zc2libHksIG1ha2UgaXQgYSBiaXQgZWFzaWVyIGZvciB0aGUgYWxnb3JpdGhtLgoKVGFrZSBhbGwgdGhlIGNvbHVtbnMgd2UgYXJlIGludGVyZXN0ZWQgaW4gYW5kIHNxdWFyZSB0aGVtLiBTYXZlIHRoYXQgc3Vic2V0LgoKYGBge3J9CnF1YWRyYXRpY19kYXRhID0gZnVsbF9kYXRhWyxjKDIsNTozOSldXjIKYGBgCgpOb3cgdGhlIHN1YnNldCBsYWNrcyB0aGUgdGFyZ2V0IHZhcmlhYmxlLCBzbyB3ZSBhcHBlbmQgaXQgYmVmb3JlIGl0IGlzIHBhc3NlZAp0byB0aGUgZnVuY3Rpb24gdmlhIGNiaW5kIChjb2x1bW4gYmluZCkuCgpgYGB7cn0KcW92YWRhdGEgPSBvdmFsb2d0cm4oMywgY2JpbmQocXVhZHJhdGljX2RhdGEsIGZ1bGxfZGF0YSRkYW1hZ2VfZ3JhZGUpKQpgYGAKCldlIHByZWRpY3QgYXMgdXN1YWwgYW5kIGdldCBvdXIgYm9vbGVhbiB2ZWN0b3IuCgpgYGB7cn0KcW92YXlwcmVkIDwtIG92YWxvZ3ByZWQocW92YWRhdGEsIHF1YWRyYXRpY19kYXRhKQpgYGAKCmBgYHtyfQptZWFuKHFvdmF5cHJlZCA9PSBmdWxsX2RhdGEkZGFtYWdlX2dyYWRlKQpgYGAKCiMjIEFsbCB2cyBBbGwKRm9yIGl0IHRvIHdvcmssIHdlIG11c3QgcGFzcyBpbiBhIG1hdHJpeCwgbm90IGEgZGF0YWZyYW1lLiBMZXQgdXMgY29udmVydCAKdGhlIGRhdGEgaW50byBtYXRyaXggZm9ybSwgYWdhaW4sIHdpdGggdGhlIHN1YnNldCB3ZSBhcmUgaW50ZXJlc3RlZCBpbiwgYW5kIAp0aGUgdGFyZ2V0IHZhbHVlIGxhc3QuCgpgYGB7cn0KZGF0YV9tYXRyaXggPSBkYXRhLm1hdHJpeChmdWxsX2RhdGFbICxjKDIsNTozOSwgNDApXSkKYGBgCgpDYWxsIGF2YSB0cmFpbiBmdW5jdGlvbiBhbmQgY2xhc3NpZnkuCmBgYHtyfQphdmF0cm4gPSBhdmFsb2d0cm4oMywgZGF0YV9tYXRyaXgpCmBgYAoKUHJlZGljdCBhcyB1c3VhbCwgYnV0IGtlZXBpbmcgdGhlIHRhcmdldCB2YXJpYWJsZSBvdXQuIE5vIG5lZWQgZm9yIG1hdHJpeCBmb3JtCmluIHRoaXMgZnVuY3Rpb24uCmBgYHtyfQphdmF5cHJlZCA8LSBhdmFsb2dwcmVkKDMsIGF2YXRybiwgZGF0YS5tYXRyaXgoZnVsbF9kYXRhWyxjKDIsNTozOSldKSkKYGBgCgpgYGB7cn0KbWVhbihhdmF5cHJlZCA9PSBmdWxsX2RhdGEkZGFtYWdlX2dyYWRlKQpgYGAKCgojIyMgUXVhZHJhdGljIERhdGEKTGV0IHVzIHRyeSBhZ2FpbiB3aXRoIHF1YWRyYXRpYyBkYXRhLgpUaGUgcXVhZHJhdGljIHZlcnNpb24gd2FzIGRlZmluZWQgYmVmb3JlLCBzbyB3ZSBjYW4ganVzdCB1c2UgaXQuCmBgYHtyfQpkYXRhX21hdHJpeCA9IGRhdGEubWF0cml4KGNiaW5kKHF1YWRyYXRpY19kYXRhLCBmdWxsX2RhdGEkZGFtYWdlX2dyYWRlKSkKYGBgCgpgYGB7cn0KYXZhdHJuID0gYXZhbG9ndHJuKDMsIGRhdGFfbWF0cml4KQphdmF5cHJlZCA8LSBhdmFsb2dwcmVkKDMsIGF2YXRybiwgZGF0YS5tYXRyaXgoZnVsbF9kYXRhWyxjKDIsNTozOSldKSkKbWVhbihhdmF5cHJlZCA9PSBmdWxsX2RhdGEkZGFtYWdlX2dyYWRlKQpgYGAKCkl0IHNlZW1zIGxpa2UgdGhlIHF1YWRyYXRpYyBzdHJhdGVneSBkaWQgbm90IGhlbHAgbXVjaC4gVGhpcyBtZXRob2QgZGlkIG5vdCBoZWxwCm11Y2ggZWl0aGVyLCBzaW5jZSB0aGUgcmVzdWx0cyBhZ2FpbnN0IG11bHRpbm9tIGFyZSBhbG1vc3QgZXhhY3RseSB0aGUgc2FtZS4KCgoK</div>
 
 
 
