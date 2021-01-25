@@ -1,7 +1,5 @@
-# library(tidyverse)
 library(nnet)
-library(mgcv)
-# library(scales)
+# library(mgcv)
 
 
 train_values <- read.csv(
@@ -10,13 +8,13 @@ train_values <- read.csv(
 train_labels <- read.csv(
   "../data/Richters_Predictor_Modeling_Earthquake_Damage_-_Train_Labels.csv"
 )
-# head(train_labels)
+
 
 full_data = train_values
 full_data$damage_grade = train_labels$damage_grade
 full_data$damage_grade = factor(full_data$damage_grade, levels = c(1, 2, 3), labels=c("low damage", "medium damage", "almost destructed"))
 full_data$damage_grade = relevel(full_data$damage_grade, ref=1)
-# str(full_data)
+
 
 
 
@@ -29,7 +27,6 @@ prediction = function(n, formula){
   
   
   total_error = sum(diag(confMat))/sum(confMat)
-  print("______________")
   print(total_error)
   
   z = summary(model)$coefficients/summary(model)$standard.errors
@@ -58,9 +55,4 @@ formula = damage_grade ~ . -building_id - geo_level_2_id -
 
 prediction(n, formula)
 
-
-# full_data %>% ggplot(aes(x=plan_configuration)) + geom_bar() + scale_y_continuous(trans = "log10")
-# full_data %>% count(ground_floor_type)
-# 
-# full_data %>% count(position)
 

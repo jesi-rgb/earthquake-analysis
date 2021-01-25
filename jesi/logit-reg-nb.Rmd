@@ -1,0 +1,113 @@
+---
+title: 'Logistic Regression: Multinom'
+output:
+  html_notebook: default
+  pdf_document: default
+---
+
+Import libraries as usual...
+```{r}
+library(nnet)
+```
+
+Reading the data...
+```{r}
+train_values <- read.csv(
+  "../data/Richters_Predictor_Modeling_Earthquake_Damage_-_Train_Values.csv"
+)
+train_labels <- read.csv(
+  "../data/Richters_Predictor_Modeling_Earthquake_Damage_-_Train_Labels.csv"
+)
+```
+
+
+We append the target variable to the full dataset, factor it and relevel it, a 
+neccesary step for the multinom algorithm. Relevel simply makes one of the possible
+categories the "reference".
+```{r}
+full_data = train_values
+full_data$damage_grade = train_labels$damage_grade
+full_data$damage_grade = factor(full_data$damage_grade, levels = c(1, 2, 3), labels=c("low damage", "medium damage", "almost destructed"))
+full_data$damage_grade = relevel(full_data$damage_grade, ref=1)
+```
+
+Let us create a function that runs the multinom algorithm, and afterwards calculates
+the accuracy of the given model. Will take n, which is the number of rows we will
+use (set up at lower values when exploring so the algorithm does not take lots of time)
+and formula, in which we specify what variables we want to keep or discard.
+```{r}
+prediction = function(n, formula){
+  #build model
+  model = multinom(formula, full_data[1:n,])
+  
+  #error calculation
+  confMat = table(predict(model), full_data[1:n,]$damage_grade)
+  
+  
+  accuracy = sum(diag(confMat))/sum(confMat)
+  
+  z = summary(model)$coefficients/summary(model)$standard.errors
+  p <- (1 - pnorm(abs(z), 0, 1)) * 2
+  print(p)
+  
+  return(accuracy)
+}
+```
+
+This will make formula exploring much easier, since we can now just define n and
+formula, call the function and keep track of the differences in the model's accuracy.
+
+Attaching the data so we can have access to the variables.
+```{r}
+attach(full_data)
+```
+
+We'll start with 10 000 rows and all variables.
+```{r}
+n = 10000 #260601
+formula = damage_grade ~ . 
+accuracy1 = prediction(n, formula)
+```
+```{r}
+accuracy1
+```
+We got almost 0.6, which is not very bad, but could be a lot better.
+
+
+Let's remove the geo levels 2 and 3, since they are too granular to give any
+information, and also the building id, which provides absolutely no information.
+```{r}
+formula = damage_grade ~ . -building_id - geo_level_2_id - geo_level_3_id
+accuracy2 = prediction(n, formula)
+```
+
+
+```{r}
+accuracy2
+```
+
+This provided almost no difference, so it was not a bad decision since we have
+less information to process but the same result. That tells us that those variables
+were not explaining anything.
+
+Let's keep subtracting variables and see what happens.
+
+Based on the p values obtained in the model, land_surface_condition had a very
+high score. That means that the confidence that those variables are related with
+our target is 1 - p, so it must be really small. Removing that variable would 
+result in a, hopefully better accuracy, but, at least, no change in it. We'll do
+that from now on, search for high p-value variables and remove them to see if
+we can improve the model's accuracy.
+
+
+```{r}
+land_surface_condition
+```
+
+
+
+
+
+
+
+
