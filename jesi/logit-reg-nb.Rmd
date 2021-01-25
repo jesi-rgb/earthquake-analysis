@@ -1,8 +1,8 @@
 ---
 title: 'Logistic Regression: Multinom and OVA/AVA'
 output:
-  html_notebook: default
   pdf_document: default
+  html_notebook: default
 ---
 
 Import libraries as usual...
@@ -22,8 +22,8 @@ train_labels <- read.csv(
 
 # Multinom from NNet
 
-We append the target variable to the full dataset, factor it and relevel it, a 
-neccesary step for the multinom algorithm. Relevel simply makes one of the possible
+We append the target variable to the full dataset, factor it and `relevel` it, a 
+neccesary step for the `multinom` algorithm. Relevel simply makes one of the possible
 categories the "reference".
 ```{r}
 full_data = train_values
@@ -32,10 +32,10 @@ full_data$damage_grade = factor(full_data$damage_grade, levels = c(1, 2, 3), lab
 full_data$damage_grade = relevel(full_data$damage_grade, ref=1)
 ```
 
-Let us create a function that runs the multinom algorithm, and afterwards calculates
-the accuracy of the given model. Will take n, which is the number of rows we will
+Let us create a function that runs the `multinom algorithm`, and afterwards calculates
+the accuracy of the given model. Will take `n`, which is the number of rows we will
 use (set up at lower values when exploring so the algorithm does not take lots of time)
-and formula, in which we specify what variables we want to keep or discard.
+and `formula`, in which we specify what variables we want to keep or discard.
 ```{r}
 prediction = function(n, formula){
   #build model
@@ -88,17 +88,17 @@ accuracy2
 ```
 
 This provided almost no difference, so it was not a bad decision since we have
-less information to process but the same result. That tells us that those variables
+less information to process but the same result. That tells us those variables
 were explaining nothing.
 
 Let's keep subtracting variables and see what happens.
 
-Based on the p values obtained in the model, land_surface_condition had a very
-high score. That means that the confidence that those variables are related with
+Based on the p values obtained in the model, `land_surface_condition` had a very
+high score. That means that the *confidence* that those variables are related with
 our target is 1 - p, so it must be really small. Removing that variable would 
-result in a, hopefully better accuracy, but, at least, no change in it. We'll do
+result in a, hopefully better *accuracy*, but, at least, no change in it. We'll do
 that from now on, search for high p-value variables and remove them to see if
-we can improve the model's accuracy.
+we can *improve the model's accuracy*.
 
 
 ```{r}
@@ -113,8 +113,8 @@ accuracy3 = prediction(n, formula)
 accuracy3
 ```
 
-For the sake of common sense, political variables like legal_ownership_status o
-the has_secondary_use_* family would probably not add much to the concept of a 
+For the sake of common sense, political variables like `legal_ownership_status` o
+the `has_secondary_use_*` family would probably not add much to the concept of a 
 building being able to deal with an earthquake, so lets remove them. Some of these variables are also categorical, so we are removing much more than it seems, 
 since the model tries with every possible combination.
 ```{r}
@@ -204,7 +204,6 @@ qovadata = ovalogtrn(3, cbind(quadratic_data, full_data$damage_grade))
 ```
 
 We predict as usual and get our boolean vector.
-
 ```{r}
 qovaypred <- ovalogpred(qovadata, quadratic_data)
 ```
@@ -252,7 +251,7 @@ mean(avaypred == full_data$damage_grade)
 ```
 
 It seems like the quadratic strategy did not help much. This method did not help
-much either, since the results against multinom are almost exactly the same.
+much either, since the results against `multinom` are almost exactly the same.
 
 
 
