@@ -10,6 +10,8 @@ train_labels <- read.csv(
 )
 
 
+
+
 full_data = train_values
 full_data$damage_grade = train_labels$damage_grade
 full_data$damage_grade = factor(full_data$damage_grade, levels = c(1, 2, 3), labels=c("low damage", "medium damage", "almost destructed"))
@@ -56,3 +58,28 @@ formula = damage_grade ~ . -building_id - geo_level_2_id -
 prediction(n, formula)
 
 
+
+#### CREACIÓN DEL ARCHIVO DE TEST ####
+test_values <- read.csv(
+  "../data/Richters_Predictor_Modeling_Earthquake_Damage_-_Test_Values.csv"
+)
+
+# El mejor modelo resultó ser el no procesado, con todas las variables.
+# Construimos el archivo para subirlo a DrivenData.
+model = multinom(damage_grade ~ ., data = full_data)
+
+# Comprobamos que sigue obteniendo ese score
+mean(predict(model) == damage_grade)
+
+# Predecimos sobre test y creamos un dataset con solo la prediccion y el id
+output = data.frame(test_values$building_id, as.integer(predict(model, test_values)))
+
+# Renaming por si acaso
+names(output)[1] <- "building_id"
+names(output)[2] <- "damage_grade"
+
+# Comprobamos que todo está en orden
+str(output)
+
+# Escribimos a disco, ready para enviar!
+write.csv(output, file="submission_logistic_reg.csv", row.names = F)
