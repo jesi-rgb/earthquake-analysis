@@ -28,7 +28,11 @@ categories the "reference".
 ```{r}
 full_data = train_values
 full_data$damage_grade = train_labels$damage_grade
-full_data$damage_grade = factor(full_data$damage_grade, levels = c(1, 2, 3), labels=c("low damage", "medium damage", "almost destructed"))
+full_data$damage_grade = factor(full_data$damage_grade, 
+                                levels = c(1, 2, 3), 
+                                labels=c("low damage", 
+                                         "medium damage", 
+                                         "almost destructed"))
 full_data$damage_grade = relevel(full_data$damage_grade, ref=1)
 ```
 
@@ -190,7 +194,7 @@ mean(ovaypred == full_data$damage_grade)
 Let us try with quadratic data, which may exaggerate some of the features in
 the variables and, possibly, make it a bit easier for the algorithm.
 
-Take all the columns we are interested in and square them. Save that subset.
+Take all the columns we are intereste   d in and square them. Save that subset.
 
 ```{r}
 quadratic_data = full_data[,c(2,5:39)]^2
@@ -254,4 +258,83 @@ It seems like the quadratic strategy did not help much. This method did not help
 much either, since the results against `multinom` are almost exactly the same.
 
 
+# Preprocessed data
+
+Lets try using some of the modified versions of the dataset that Ingacio prepared.
+
+```{r}
+train_data_v2 = read.csv("../preprocess/v2 - preprocessed_train.csv")
+test_data_v2 = read.csv("../preprocess/v2 - preprocessed_test.csv")
+train_labels = read.csv("../data/Richters_Predictor_Modeling_Earthquake_Damage_-_Train_Labels.csv")
+```
+
+This version was modified to get rid of some strongly unbalanced variables and
+reduce the dimensionality of those with high number of categories, such as geo2,
+geo3 or has_secondary_use_*.
+
+We proceed the exact same way as before, factoring and releveling.
+```{r}
+full_data_v2 = train_data_v2
+full_data_v2$damage_grade = train_labels$damage_grade
+full_data_v2$damage_grade = factor(full_data_v2$damage_grade, 
+                                levels = c(1, 2, 3), 
+                                labels=c("low damage", 
+                                         "medium damage", 
+                                         "almost destructed"))
+full_data_v2$damage_grade = relevel(full_data_v2$damage_grade, ref=1)
+
+```
+
+```{r}
+model = multinom(damage_grade ~ ., full_data_v2)
+
+#error calculation
+confMat = table(predict(model), full_data_v2$damage_grade)
+
+accuracy = sum(diag(confMat))/sum(confMat)
+accuracy
+```
+
+
+# OVA
+```{r}
+full_data_v2$damage_grade = as.numeric(full_data_v2$damage_grade) - 1 
+```
+
+```{r}
+full_data_v2[sapply(full_data_v2, is.character)] = lapply(full_data_v2[sapply(full_data_v2, is.character)], as.factor)
+full_data_v2[sapply(full_data_v2, is.factor)] = lapply(full_data_v2[sapply(full_data_v2, is.factor)], function(x) {as.numeric(x)-1})
+```
+
+
+
+```{r}
+ovatrn = ovalogtrn(3, full_data_v2)
+```
+
+
+```{r}
+ovaypred <- ovalogpred(ovatrn, full_data_v2[,c(1:13)])
+mean(ovaypred == full_data_v2$damage_grade)
+```
+
+# AVA
+```{r}
+data_matrix = data.matrix(full_data_v2)
+avatrn = avalogtrn(3, data_matrix)
+avaypred <- avalogpred(3, avatrn, data.matrix(full_data_v2[,c(1:13)]))
+mean(avaypred == full_data_v2$damage_grade)
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
 
