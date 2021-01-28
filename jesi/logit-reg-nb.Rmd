@@ -1,8 +1,10 @@
 ---
 title: 'Logistic Regression: Multinom and OVA/AVA'
 output:
-  pdf_document: default
+  html_document:
+    df_print: paged
   html_notebook: default
+  pdf_document: default
 ---
 
 Import libraries as usual...
@@ -51,9 +53,9 @@ prediction = function(n, formula){
   
   accuracy = sum(diag(confMat))/sum(confMat)
   
-  z = summary(model)$coefficients/summary(model)$standard.errors
-  p <- (1 - pnorm(abs(z), 0, 1)) * 2
-  print(p)
+  # z = summary(model)$coefficients/summary(model)$standard.errors
+  # p <- (1 - pnorm(abs(z), 0, 1)) * 2
+  # print(p)
   
   return(accuracy)
 }
@@ -69,7 +71,7 @@ attach(full_data)
 
 We'll start with 10 000 rows and all variables.
 ```{r}
-n = 10000 #260601
+n = 260601 #260601
 formula = damage_grade ~ . 
 accuracy1 = prediction(n, formula)
 ```
@@ -260,7 +262,7 @@ much either, since the results against `multinom` are almost exactly the same.
 
 # Preprocessed data
 
-Lets try using some of the modified versions of the dataset that Ingacio prepared.
+Lets try using some of the modified versions of the dataset that Ignacio prepared.
 
 ```{r}
 train_data_v2 = read.csv("../preprocess/v2 - preprocessed_train.csv")

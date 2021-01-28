@@ -17,45 +17,47 @@ full_data$damage_grade = train_labels$damage_grade
 full_data$damage_grade = factor(full_data$damage_grade, levels = c(1, 2, 3), labels=c("low damage", "medium damage", "almost destructed"))
 full_data$damage_grade = relevel(full_data$damage_grade, ref=1)
 
+char_to_num = function(data){
+  data[sapply(data, is.character)] = lapply(data[sapply(data, is.character)], as.factor)
+  data[sapply(data, is.factor)] = lapply(data[sapply(data, is.factor)], function(x) {as.numeric(x)})
+  return(data)
+}
 
+full_data = char_to_num(full_data)
 
+norm_data = data.frame(apply(full_data, 2, scale))
+head(norm_data)
 
 prediction = function(n, formula){
   #build model
-  model = multinom(formula, data = full_data[1:n,])
+  model = multinom(formula, data = norm_data[1:n,])
   
   #error calculation
-  confMat = table(predict(model), full_data[1:n,]$damage_grade)
+  confMat = table(predict(model), norm_data[1:n,]$damage_grade)
   
   
   total_error = sum(diag(confMat))/sum(confMat)
   print(total_error)
-  
-  z = summary(model)$coefficients/summary(model)$standard.errors
-  p <- (1 - pnorm(abs(z), 0, 1)) * 2
-  print(p)
 }
 
 attach(full_data)
-n = 100000 #260601
-formula = damage_grade ~ . -building_id - geo_level_2_id - 
-                            geo_level_3_id - 
-                            area_percentage - 
-                            height_percentage - 
-                            has_superstructure_rc_non_engineered -
-                            legal_ownership_status -
-                            plan_configuration -
-                            has_secondary_use_institution -
-                            has_secondary_use_health_post -
-                            has_secondary_use_use_police -
-                            has_secondary_use_other -
-                            has_secondary_use_rental -
-                            has_secondary_use_industry -
-                            has_secondary_use_gov_office -
-                            has_superstructure_cement_mortar_brick -
-                            has_superstructure_cement_mortar_stone
+n = 260601 #260601
+formula = damage_grade ~ .
 
 prediction(n, formula)
+
+
+
+#### POLR ####
+library(MASS)
+full_data$damage_grade = factor(full_data$damage_grade, ordered = T, levels = c(1, 2, 3), labels=c("low damage", "medium damage", "almost destructed"))
+str(full_data)
+full
+
+model = polr(damage_grade ~ ., full_data)
+mean(predict(model) == damage_grade)
+
+predict(model, char_to_num(test_values))
 
 
 

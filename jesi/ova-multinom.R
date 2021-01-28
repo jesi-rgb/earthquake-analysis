@@ -18,7 +18,7 @@ head(full_data)
 
 # We do the same with all non-numeric variables
 full_data[sapply(full_data, is.character)] = lapply(full_data[sapply(full_data, is.character)], as.factor)
-full_data[sapply(full_data, is.factor)] = lapply(full_data[sapply(full_data, is.factor)], function(x) {as.numeric(x)-1})
+full_data[sapply(full_data, is.factor)] = lapply(full_data[sapply(full_data, is.factor)], function(x) {as.numeric(x)})
 head(full_data)
 
 # Let's start with the classifiers.
@@ -28,7 +28,8 @@ head(full_data)
 # so we can just make a subset of the dataset in the order we need. Since the target
 # was already the last one, its index is 40, but when making that selection it is
 # necessary.
-ovatrn = ovalogtrn(3, full_data[ ,c(2,5:39, 40)])
+ovatrn = ovalogtrn(3, full_data[ ,c(2, 5:39, 40)])
+
 
 
 # Finally, to predict, we get rid of the target column and use the 
@@ -39,6 +40,18 @@ ovaypred <- ovalogpred(ovatrn, full_data[,c(2,5:39)])
 # values in the vector. Essentially: the accuracy.
 mean(ovaypred == full_data$damage_grade)
 # [1] 0.581832 Not a great result, let's keep trying.
+
+# Same but no has_secondary_*
+ovatrn = ovalogtrn(3, full_data[ ,c(2, 5:28, 40)])
+ovaypred <- ovalogpred(ovatrn, full_data[,c(2, 5:28)])
+mean(ovaypred == full_data$damage_grade)
+
+# All variables
+ovatrn = ovalogtrn(3, full_data)
+ovaypred <- ovalogpred(ovatrn, full_data[,c(1:39)])
+mean(ovaypred == full_data$damage_grade)
+
+
 
 # Let us try with quadratic data, which may exaggerate some of the features in
 # the variables and, possibly, make it a bit easier for the algorithm.
