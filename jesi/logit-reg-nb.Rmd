@@ -1,0 +1,340 @@
+---
+title: 'Logistic Regression: Multinom and OVA/AVA'
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+Import libraries as usual...
+```{r}
+library(nnet)
+```
+
+Reading the data...
+```{r}
+train_values <- read.csv(
+  "../data/Richters_Predictor_Modeling_Earthquake_Damage_-_Train_Values.csv"
+)
+train_labels <- read.csv(
+  "../data/Richters_Predictor_Modeling_Earthquake_Damage_-_Train_Labels.csv"
+)
+```
+
+# Multinom from NNet
+
+We append the target variable to the full dataset, factor it and `relevel` it, a 
+neccesary step for the `multinom` algorithm. Relevel simply makes one of the possible
+categories the "reference".
+```{r}
+full_data = train_values
+full_data$damage_grade = train_labels$damage_grade
+full_data$damage_grade = factor(full_data$damage_grade, 
+                                levels = c(1, 2, 3), 
+                                labels=c("low damage", 
+                                         "medium damage", 
+                                         "almost destructed"))
+full_data$damage_grade = relevel(full_data$damage_grade, ref=1)
+```
+
+Let us create a function that runs the `multinom algorithm`, and afterwards calculates
+the accuracy of the given model. Will take `n`, which is the number of rows we will
+use (set up at lower values when exploring so the algorithm does not take lots of time)
+and `formula`, in which we specify what variables we want to keep or discard.
+```{r}
+prediction = function(n, formula){
+  #build model
+  model = multinom(formula, full_data[1:n,])
+  
+  #error calculation
+  confMat = table(predict(model), full_data[1:n,]$damage_grade)
+  
+  
+  accuracy = sum(diag(confMat))/sum(confMat)
+  
+  z = summary(model)$coefficients/summary(model)$standard.errors
+  p <- (1 - pnorm(abs(z), 0, 1)) * 2
+  print(p)
+  
+  return(accuracy)
+}
+```
+
+This will make formula exploring much easier, since we can now just define n and
+formula, call the function and keep track of the differences in the model's accuracy.
+
+Attaching the data so we can have access to the variables.
+```{r}
+attach(full_data)
+```
+
+We'll start with 10 000 rows and all variables.
+```{r}
+n = 10000 #260601
+formula = damage_grade ~ . 
+accuracy1 = prediction(n, formula)
+```
+```{r}
+accuracy1
+```
+We got almost 0.6, which is not very bad, but could be a lot better.
+
+
+Let's remove the geo levels 2 and 3, since they are too granular to give any
+information, and also the building id, which provides absolutely no information.
+```{r}
+formula = damage_grade ~ . -building_id - geo_level_2_id - geo_level_3_id
+accuracy2 = prediction(n, formula)
+```
+
+
+```{r}
+accuracy2
+```
+
+This provided almost no difference, so it was not a bad decision since we have
+less information to process but the same result. That tells us those variables
+were explaining nothing.
+
+Let's keep subtracting variables and see what happens.
+
+Based on the p values obtained in the model, `land_surface_condition` had a very
+high score. That means that the *confidence* that those variables are related with
+our target is 1 - p, so it must be really small. Removing that variable would 
+result in a, hopefully better *accuracy*, but, at least, no change in it. We'll do
+that from now on, search for high p-value variables and remove them to see if
+we can *improve the model's accuracy*.
+
+
+```{r}
+formula = damage_grade ~ . -building_id - 
+                            geo_level_2_id - 
+                            geo_level_3_id - 
+                            land_surface_condition
+  
+accuracy3 = prediction(n, formula)
+```
+```{r}
+accuracy3
+```
+
+For the sake of common sense, political variables like `legal_ownership_status` o
+the `has_secondary_use_*` family would probably not add much to the concept of a 
+building being able to deal with an earthquake, so lets remove them. Some of these variables are also categorical, so we are removing much more than it seems, 
+since the model tries with every possible combination.
+```{r}
+formula = damage_grade ~ . -building_id - 
+                            geo_level_2_id - 
+                            geo_level_3_id - 
+                            land_surface_condition -
+                            legal_ownership_status -
+                            has_secondary_use_institution -
+                            has_secondary_use_health_post -
+                            has_secondary_use_use_police -
+                            has_secondary_use_other
+  
+accuracy4 = prediction(n, formula)
+```
+
+
+```{r}
+accuracy4
+```
+
+# OVA and AVA methods
+```{r}
+library(regtools)
+```
+
+In order for the data to work with the regtools library, we must convert all columns
+to numeric or int variables. So, we factor the target variable and then parse it as numeric.
+```{r}
+# In order for the data to work with the regtools library, we must convert all columns
+# to numeric or int variables. So, we factor the target variable and then parse it as numeric.
+full_data = train_values
+full_data$damage_grade = train_labels$damage_grade
+full_data$damage_grade = factor(full_data$damage_grade, levels = c(1, 2, 3), labels=c("low damage", "medium damage", "almost destructed"))
+full_data$damage_grade = as.numeric(full_data$damage_grade) - 1 
+```
+
+
+We do the same with all non-numeric variables
+```{r}
+full_data[sapply(full_data, is.character)] = lapply(full_data[sapply(full_data, is.character)], as.factor)
+full_data[sapply(full_data, is.factor)] = lapply(full_data[sapply(full_data, is.factor)], function(x) {as.numeric(x)-1})
+
+```
+
+
+Let's start with the classifiers.
+
+## One Vs All
+For it to work, we must set the target column as the last one in the dataframe,
+so we can just make a subset of the dataset in the order we need. Since the target
+was already the last one, its index is 40, but when making that selection it is
+necessary.
+
+```{r}
+ovatrn = ovalogtrn(3, full_data[ ,c(2,5:39, 40)])
+```
+
+
+Finally, to predict, we get rid of the target column and use the 
+predict helper function.
+```{r}
+ovaypred <- ovalogpred(ovatrn, full_data[,c(2,5:39)])
+```
+
+The mean function over a boolean vector gives us the proportion of true/all
+values in the vector. Essentially: the accuracy.
+```{r}
+mean(ovaypred == full_data$damage_grade)
+```
+
+### Quadratic data
+Let us try with quadratic data, which may exaggerate some of the features in
+the variables and, possibly, make it a bit easier for the algorithm.
+
+Take all the columns we are intereste   d in and square them. Save that subset.
+
+```{r}
+quadratic_data = full_data[,c(2,5:39)]^2
+```
+
+Now the subset lacks the target variable, so we append it before it is passed
+to the function via cbind (column bind).
+
+```{r}
+qovadata = ovalogtrn(3, cbind(quadratic_data, full_data$damage_grade))
+```
+
+We predict as usual and get our boolean vector.
+```{r}
+qovaypred <- ovalogpred(qovadata, quadratic_data)
+```
+
+```{r}
+mean(qovaypred == full_data$damage_grade)
+```
+
+## All vs All
+For it to work, we must pass in a matrix, not a dataframe. Let us convert 
+the data into matrix form, again, with the subset we are interested in, and 
+the target value last.
+
+```{r}
+data_matrix = data.matrix(full_data[ ,c(2,5:39, 40)])
+```
+
+Call ava train function and classify.
+```{r}
+avatrn = avalogtrn(3, data_matrix)
+```
+
+Predict as usual, but keeping the target variable out. No need for matrix form
+in this function.
+```{r}
+avaypred <- avalogpred(3, avatrn, data.matrix(full_data[,c(2,5:39)]))
+```
+
+```{r}
+mean(avaypred == full_data$damage_grade)
+```
+
+
+### Quadratic Data
+Let us try again with quadratic data.
+The quadratic version was defined before, so we can just use it.
+```{r}
+data_matrix = data.matrix(cbind(quadratic_data, full_data$damage_grade))
+```
+
+```{r}
+avatrn = avalogtrn(3, data_matrix)
+avaypred <- avalogpred(3, avatrn, data.matrix(full_data[,c(2,5:39)]))
+mean(avaypred == full_data$damage_grade)
+```
+
+It seems like the quadratic strategy did not help much. This method did not help
+much either, since the results against `multinom` are almost exactly the same.
+
+
+# Preprocessed data
+
+Lets try using some of the modified versions of the dataset that Ingacio prepared.
+
+```{r}
+train_data_v2 = read.csv("../preprocess/v2 - preprocessed_train.csv")
+test_data_v2 = read.csv("../preprocess/v2 - preprocessed_test.csv")
+train_labels = read.csv("../data/Richters_Predictor_Modeling_Earthquake_Damage_-_Train_Labels.csv")
+```
+
+This version was modified to get rid of some strongly unbalanced variables and
+reduce the dimensionality of those with high number of categories, such as geo2,
+geo3 or has_secondary_use_*.
+
+We proceed the exact same way as before, factoring and releveling.
+```{r}
+full_data_v2 = train_data_v2
+full_data_v2$damage_grade = train_labels$damage_grade
+full_data_v2$damage_grade = factor(full_data_v2$damage_grade, 
+                                levels = c(1, 2, 3), 
+                                labels=c("low damage", 
+                                         "medium damage", 
+                                         "almost destructed"))
+full_data_v2$damage_grade = relevel(full_data_v2$damage_grade, ref=1)
+
+```
+
+```{r}
+model = multinom(damage_grade ~ ., full_data_v2)
+
+#error calculation
+confMat = table(predict(model), full_data_v2$damage_grade)
+
+accuracy = sum(diag(confMat))/sum(confMat)
+accuracy
+```
+
+
+# OVA
+```{r}
+full_data_v2$damage_grade = as.numeric(full_data_v2$damage_grade) - 1 
+```
+
+```{r}
+full_data_v2[sapply(full_data_v2, is.character)] = lapply(full_data_v2[sapply(full_data_v2, is.character)], as.factor)
+full_data_v2[sapply(full_data_v2, is.factor)] = lapply(full_data_v2[sapply(full_data_v2, is.factor)], function(x) {as.numeric(x)-1})
+```
+
+
+
+```{r}
+ovatrn = ovalogtrn(3, full_data_v2)
+```
+
+
+```{r}
+ovaypred <- ovalogpred(ovatrn, full_data_v2[,c(1:13)])
+mean(ovaypred == full_data_v2$damage_grade)
+```
+
+# AVA
+```{r}
+data_matrix = data.matrix(full_data_v2)
+avatrn = avalogtrn(3, data_matrix)
+avaypred <- avalogpred(3, avatrn, data.matrix(full_data_v2[,c(1:13)]))
+mean(avaypred == full_data_v2$damage_grade)
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
