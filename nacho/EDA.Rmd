@@ -191,6 +191,7 @@ df %>% filter(count_floors_pre_eq == 7) %>% select(labels) %>% table() %>% prop.
 df %>% filter(count_floors_pre_eq == 8) %>% select(labels) %>% table() %>% prop.table()
 df %>% filter(count_floors_pre_eq == 9) %>% select(labels) %>% table() %>% prop.table()
 ```
+
 Solo una instancia con 9, y las anteriores no siguen el mismo patrón (que todas sufrieran el mismo tipo de daño)
 Como tenemos proporciones muy similares, juntamos las +5 con ella
 
