@@ -35,11 +35,67 @@ library(tidyverse)
 library(ggplot2)
 
 library(tree)
+library(rpart)
 library(RWeka)
 library(partykit)
 library(ggpubr)
 
+library(reshape2)
+
 set.seed(2)
+```
+
+---------------------------------------------------------------------------------------------------------------------
+Gráficos de resultados
+```{r}
+crt_f1_tst <- c(0.4959, 0.5356)
+crt_f1_val <- c(0.9066, 0.8855) #, 0.8756)
+crt_leafs <- c(23, 42) #, 25)
+crt_subm <- 1:2
+
+c45_f1_tst <- c(0.3365, 0.6581, 0.6779, 0.6836, 0.5064, 0.5812, 0.5703, 0.6734, 0.6285, 0.6848, 0.6850, 0.6803)
+c45_f1_val <- c(0.9593, 0.9553, 0.9425, 0.6814, 0.8724, 0.9328, 0.8512, 0.7018, 0.6388, 0.6746, 0.6781, 0.6687)
+c45_leafs <- c(724, 1387, 571, 5586, 3896, 10641, 12790, 4821, 1995, 2040, 939, 462)
+c45_subm <- 1:12
+
+crt_df <- data.frame(crt_subm, crt_f1_tst, crt_f1_val, crt_leafs)
+c45_df <- data.frame(c45_subm, c45_f1_tst, c45_f1_val, c45_leafs)
+crt_df
+c45_df
+```
+
+```{r}
+c45_df %>% 
+  select(-c45_leafs) %>% 
+  melt(id=c("c45_subm"), value.name = "Score") %>%
+  ggplot(aes(x=c45_subm, y=Score, color=variable)) +
+    geom_point(size=3, alpha=0.5) +
+    geom_line(size=1) +
+    labs(title = "Resultados para C4.5", x="Submission", y="F1 score") +
+    theme_light()
+```
+
+```{r}
+crt_df %>% 
+  select(-crt_leafs) %>% 
+  melt(id=c("crt_subm"), value.name = "Score") %>%
+  ggplot(aes(x=crt_subm, y=Score, color=variable)) +
+    geom_point(size=3, alpha=0.5) +
+    geom_line(size=1) +
+    labs(title = "Resultados para CART", x="Submission", y="F1 score") +
+    theme_light()
+```
+
+```{r}
+c45_df %>% 
+  select(-c45_subm) %>% 
+  melt(id=c("c45_leafs"), value.name = "Score") %>%
+  ggplot(aes(x=c45_leafs, y=Score, color=variable)) +
+    geom_point(size=3, alpha=0.5) +
+    geom_line(size=1) +
+    labs(title = "Resultados para C4.5", x="Nº de hojas", y="F1 score") +
+    scale_x_continuous(trans='log10') +
+    theme_light()
 ```
 
 
@@ -101,9 +157,9 @@ compare_pred <- function(predicted, expected) {
 
 Cargar conjuntos de datos preprocesados
 ```{r}
-trn_values <- read_csv("data/v11 - preprocessed_train.csv")
-trn_labels <- read_csv("data/v11 - preprocessed_train_labels.csv")
-tst_values  <- read_csv("data/v11 - preprocessed_test.csv")
+trn_values <- read_csv("data/v6 - preprocessed_train.csv")
+trn_labels <- read_csv("data/v6 - preprocessed_train_labels.csv")
+tst_values  <- read_csv("data/v6 - preprocessed_test.csv")
 
 names <- colnames(trn_values)
 ```
@@ -120,7 +176,7 @@ colnames(trn_values)
 
 
 ```{r}
-# V1
+# Para Versión 1
 # factores <- c(1,8:15,17:18)
 
 # v2
@@ -144,8 +200,9 @@ colnames(trn_values)
 # v5
 # factores <- c(1, 3:ncol(trn_values))
 
+# v6
 # Cuidado que count_families está incluído (la 22)
-# factores <- c(5:21, 23:ncol(trn_values))
+factores <- c(1:2,5:21, 23:ncol(trn_values))
 
 # V7 y 8
 # factores <- c(4:14, 15:ncol(trn_values))
@@ -154,7 +211,7 @@ colnames(trn_values)
 # factores <- c(1,5:21,23:ncol(trn_values))
 
 # v10y11
-factores <- c(1:ncol(trn_values))
+# factores <- c(1:ncol(trn_values))
 ```
 
 
@@ -178,8 +235,8 @@ train
 tst_values
 ```
 
-<!-- Quitar duplicados aquí -->
 ```{r}
+# # Quitar duplicados aquí
 # sum(duplicated(train))
 # train <- unique(train)
 # sum(duplicated(train))
@@ -228,7 +285,8 @@ cv_tree <- cv.tree(arbol, FUN = prune.misclass, K = 5)
 summary(cv_tree)
 ```
 
-De https://www.cienciadedatos.net/documentos/33_arboles_decision_random_forest_gradient_boosting_c50#%C3%81rboles_de_clasificaci%C3%B3n
+Modificación de 
+<!-- https://www.cienciadedatos.net/documentos/33_arboles_decision_random_forest_gradient_boosting_c50#%C3%81rboles_de_clasificaci%C3%B3n -->
 
 Tamaño óptimo encontrado:
 ```{r}
@@ -285,28 +343,95 @@ compare_pred(cart_predict, val$labels)
 ```
 
 ---------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------
+
+Con rpart
+<!-- https://www.statmethods.net/advstats/cart.html -->
+```{r}
+rpart_tree <- rpart(labels ~ ., method="class", data=train)
+
+printcp(rpart_tree) # display the results
+plotcp(rpart_tree) # visualize cross-validation results
+# summary(rpart_tree) # detailed summary of splits
+
+# plot tree
+plot(rpart_tree, uniform=TRUE, main="Classification Tree")
+text(rpart_tree, use.n=TRUE, all=TRUE, cex=.8)
+
+# prune the tree
+rpart_pruned <- prune(rpart_tree, cp=rpart_tree$cptable[which.min(rpart_tree$cptable[,"xerror"]),"CP"])
+
+# plot the pruned tree
+plot(rpart_pruned, uniform=TRUE, main="Pruned Classification Tree")
+text(rpart_pruned, use.n=TRUE, all=TRUE, cex=.8)
+```
+
+Predecir rpart tree
+```{r}
+rpart_pred <- predict(pfit, val, type="class")
+
+compare_pred(rpart_pred, val$labels)
+```
+
+
+---------------------------------------------------------------------------------------------------------------------
 J48
 ---------------------------------------------------------------------------------------------------------------------
 
+Grid search
 ```{r}
 # J48 es la implementacion de C4.5 en Weka, y su uso es similar
 # al de la funcion "tree" vista anteriormente en este script.
 # Vemos un ejemplo de uso sobre "iris"
-c45_tree <- J48(labels~., data=train)
+gs <- list(C = c(0.1, 0.15, 0.2),
+           M = c(5, 10, 20)) %>% 
+        cross_df()
+
+apply(gs, 1, function(row) {
+  value_C <- row[1]
+  value_M <- row[2]
+  cat("C: ")
+  value_C %>% cat()
+  cat("\nM: ")
+  value_M %>% cat()
+  
+  c45_tree <- J48(labels~., data=train, control=Weka_control(C = value_C, M = value_M))
+
+  c45_tree$classifier$toSummaryString() %>% print()
+
+  c45_predict <- predict(c45_tree, val)
+
+  resul = as.data.frame(cbind(predicted = c45_predict, y=val$labels))
+  cat("Accuracy global:\n")
+  accuracy(resul) %>% print()
+
+  compare_pred(c45_predict, val$labels)
+
+  cv_resul <- evaluate_Weka_classifier(c45_tree, numFolds=3, class=T)
+  cv_resul %>% print()
+  
+  cat("_______________________________________________________________________\n")
+})
+
+pmap(gs, training)
+```
+
+
+Un solo modelo
+```{r}
+c45_tree <- J48(labels~., data=train, control=Weka_control(C = 0.1, M = 50))
 
 c45_tree$classifier$toSummaryString()
 ```
 
 Para graficar en caso de que el árbol sea pequeño
 ```{r}
-# png("airct.png", res=80, height=800, width=1600) 
-  #  plot(c45_tree, gp = gpar(fontsize = 6),     # font size changed to 6
-  # inner_panel=node_inner,
-  # ip_args=list(
-  #      abbreviate = TRUE, 
-  #      id = FALSE)
-  # )
-# dev.off()
+plot(c45_tree, gp = gpar(fontsize = 6),
+  inner_panel=node_inner,
+  ip_args=list(
+       abbreviate = TRUE,
+       id = FALSE)
+)
 ```
 
 Predicción
@@ -324,7 +449,7 @@ Evaluar con CV
 ```{r}
 set.seed(2)
 # Si queremos hacer una validacion cruzada usando RWeka
-cv_resul <- evaluate_Weka_classifier(c45_tree, numFolds=5)
+cv_resul <- evaluate_Weka_classifier(c45_tree, numFolds=5, class=T)
 cv_resul
 ```
 
@@ -372,11 +497,11 @@ Guardar resultados
 # Leer IDs de test
 buildings_ids <- read_csv("./data/test_values.csv")[,1]
 
-# buildings_ids %>%
-#   bind_cols(cart_test) %>%
-#   write_csv("./out/v11 - cart.csv")
+buildings_ids %>%
+  bind_cols(cart_test) %>%
+  write_csv("./out/v11 - cart.csv")
 
 buildings_ids %>% 
   bind_cols(c45_test) %>% 
-  write_csv("./out/v11 - c45.csv")
+  write_csv("./out/v6-3 - c45.csv")
 ```
