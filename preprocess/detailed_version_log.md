@@ -51,5 +51,8 @@
    - Se sube a 40, sigue con valores reguleros (CV 60.8112, f1 val 0.5742824, hojas 543, size 103180)
    - Se acaba evaluando en test con 80 características
 
-12. v11 Reduciendo puntos con Tomek (sin eliminar duplicados, se lo dejamos a tomek)
+12a. v11 Reduciendo puntos con Tomek (sin eliminar duplicados, se lo dejamos a tomek)
    - No se puede, tarda mucho
+   
+12. Aplicación del algoritmo de reducción de ruido IPF de la librería NoiseFiltersR. 33 variables de la versión 6, basada en los resultados del EDA.
+13. Aplicación del algoritmo de reducción de ruido CVCF de la librería NoiseFiltersR. 33 variables de la versión 6, basada en los resultados del EDA.
