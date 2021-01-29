@@ -21,3 +21,5 @@
 10. Partiendo de v6, discretización de variables continuas.
 
 11. v10 con selección de características a 15
+12. Aplicación del algoritmo de reducción de ruido IPF de la librería NoiseFiltersR. 33 variables de la versión 6, basada en los resultados del EDA.
+13. Aplicación del algoritmo de reducción de ruido CVCF de la librería NoiseFiltersR. 33 variables de la versión 6, basada en los resultados del EDA.
